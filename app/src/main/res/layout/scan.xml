@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+    <LinearLayout
+        android:background="@color/camera_transparent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/buttonsLayout">
+
+        <Button
+            android:textColor="@android:color/white"
+            android:background="@color/zxing_transparent"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Отменить"
+            android:onClick="pause" />
+
+        <View
+            android:layout_gravity="center_vertical"
+            android:id="@+id/qr"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/circle_qr"
+            android:clickable="true" />
+
+        <Button
+            android:textColor="@android:color/white"
+            android:background="@color/zxing_transparent"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Продолжить"
+            android:onClick="resume"
+            android:id="@+id/button" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
