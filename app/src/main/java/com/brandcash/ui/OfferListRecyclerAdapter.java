@@ -32,7 +32,9 @@ public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecy
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.name.setText(data.get(position).getName());
+        holder.name.setText(data.get(position).getBrand().getBrandName());
+        holder.description.setText(data.get(position).getBrand().getBrandDescription());
+        holder.price.setText(data.get(position).getBudget());
     }
 
     @Override
@@ -43,10 +45,15 @@ public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecy
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name;
+        public TextView description;
+        public TextView price;
 
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.name);
+            description = (TextView) itemView.findViewById(R.id.description);
+            price = (TextView) itemView.findViewById(R.id.price);
+
         }
     }
 }

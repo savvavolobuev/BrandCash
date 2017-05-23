@@ -5,5 +5,6 @@
     <color name="colorAccent">#5BD090</color>
     <color name="navBackground">#CAD3DB</color>
     <color name="qrCircle">#FC4150</color>
+    <color name="background_gray">#F4F3F5</color>
     <color name="camera_transparent">#80000000</color>
 </resources>
