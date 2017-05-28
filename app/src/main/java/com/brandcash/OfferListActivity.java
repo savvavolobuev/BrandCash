@@ -39,12 +39,13 @@ import retrofit2.Response;
  * Created by savva.volobuev on 23.05.2017.
  */
 
-public class OfferListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+public class OfferListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OfferListRecyclerAdapter.OfferClickListener {
+    public static final String EXTRA_OFFER = "EXTRA_OFFER";
     private NavigationView navigationView;
     private List<Offer> offers;
     private RecyclerView recyclerView;
     private OfferListRecyclerAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +143,7 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
                 i++;
                 Log.d("httpserver", offers.size() + " ");
                 if (offers != null) {
-                    adapter = new OfferListRecyclerAdapter(offers);
+                    adapter = new OfferListRecyclerAdapter(offers, OfferListActivity.this);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(OfferListActivity.this);
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -159,4 +160,12 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
         });
 
     }
+
+    @Override
+    public void onClick(int position) {
+        Intent intent = new Intent(this, OfferInfoActivity.class);
+        intent.putExtra(EXTRA_OFFER, offers.get(position));
+        startActivity(intent);
+    }
+
 }

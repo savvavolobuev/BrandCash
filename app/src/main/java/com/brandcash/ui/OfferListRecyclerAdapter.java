@@ -18,10 +18,18 @@ import java.util.List;
 public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecyclerAdapter.ViewHolder> {
 
     private List<Offer> data;
+    private OfferClickListener offerClickListener;
 
-    public OfferListRecyclerAdapter(List<Offer> offers) {
+
+    public interface OfferClickListener {
+        void onClick(int position);
+    }
+
+    public OfferListRecyclerAdapter(List<Offer> offers, OfferClickListener offerClickListener) {
+        this.offerClickListener = offerClickListener;
         this.data = offers;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,10 +39,16 @@ public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecy
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.name.setText(data.get(position).getBrand().getBrandName());
         holder.description.setText(data.get(position).getBrand().getBrandDescription());
         holder.price.setText(data.get(position).getBudget());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                offerClickListener.onClick(position);
+            }
+        });
     }
 
     @Override
@@ -42,7 +56,7 @@ public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecy
         return data.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name;
         public TextView description;
@@ -55,5 +69,7 @@ public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecy
             price = (TextView) itemView.findViewById(R.id.price);
 
         }
+
+
     }
 }

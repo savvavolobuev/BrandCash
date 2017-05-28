@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class CaptureQrActivity extends Activity {
     private BeepManager beepManager;
     private String lastText;
     private static final int CAMERA_PERM = 32;
+    private Button cancelBtn;
 
     private BarcodeCallback callback = new BarcodeCallback() {
         @Override
@@ -65,6 +67,14 @@ public class CaptureQrActivity extends Activity {
 
         beepManager = new BeepManager(this);
 
+        cancelBtn = (Button) findViewById(R.id.cancel);
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
