@@ -1,5 +1,6 @@
 package com.brandcash.serverapi;
 
+import com.brandcash.model.AccountData;
 import com.brandcash.model.Offer;
 
 import java.util.List;
@@ -15,5 +16,8 @@ public interface ServerApiService {
 
     @GET("/getSpecials")
     Call<List<Offer>> getSpecials();
+
+    @GET("/settings")
+    Call<AccountData> getSettings();
 
 }

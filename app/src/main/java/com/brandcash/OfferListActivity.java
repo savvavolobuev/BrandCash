@@ -139,8 +139,6 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
                 offers = response.body();
-                int i = 0;
-                i++;
                 Log.d("httpserver", offers.size() + " ");
                 if (offers != null) {
                     adapter = new OfferListRecyclerAdapter(offers, OfferListActivity.this);
@@ -153,8 +151,6 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onFailure(Call<List<Offer>> call, Throwable t) {
-                int i = 0;
-                i++;
                 Log.d("httpserver", "fail");
             }
         });
