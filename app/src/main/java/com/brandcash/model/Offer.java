@@ -3,31 +3,45 @@ package com.brandcash.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
  * Created by savva.volobuev on 23.05.2017.
  */
 
-public class Offer implements Parcelable{
+public class Offer implements Parcelable {
 
+    @SerializedName("start_date")
     private String startDate;
+    @SerializedName("action_id")
     private String actionId;
-    private String budget;
+    @SerializedName("budget")
+    private int budget;
+    @SerializedName("brand")
     private Brand brand;
+    @SerializedName("expiration_date")
     private String expirationDate;
+    @SerializedName("count")
     private int count;
+    @SerializedName("description")
     private String description;
+    @SerializedName("single_cb")
     private int singleCb;
+    @SerializedName("status")
     private String status;
+    @SerializedName("pict_url")
     private String pictUrl;
+    @SerializedName("action_shops")
     private List<ActionShop> actionShops;
+    @SerializedName("name")
     private String name;
 
     protected Offer(Parcel in) {
         startDate = in.readString();
         actionId = in.readString();
-        budget = in.readString();
+        budget = in.readInt();
         brand = in.readParcelable(Brand.class.getClassLoader());
         expirationDate = in.readString();
         count = in.readInt();
@@ -67,11 +81,11 @@ public class Offer implements Parcelable{
         this.actionId = actionId;
     }
 
-    public String getBudget() {
+    public int getBudget() {
         return budget;
     }
 
-    public void setBudget(String budget) {
+    public void setBudget(int budget) {
         this.budget = budget;
     }
 
@@ -156,7 +170,7 @@ public class Offer implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(startDate);
         dest.writeString(actionId);
-        dest.writeString(budget);
+        dest.writeInt(budget);
         dest.writeParcelable(brand, flags);
         dest.writeString(expirationDate);
         dest.writeInt(count);

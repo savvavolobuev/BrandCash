@@ -4,10 +4,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.brandcash.BrandcashApp;
 import com.brandcash.R;
 import com.brandcash.model.Offer;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -40,15 +44,25 @@ public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecy
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.name.setText(data.get(position).getBrand().getBrandName());
-        holder.description.setText(data.get(position).getBrand().getBrandDescription());
-        holder.price.setText(data.get(position).getBudget());
+        Offer item = data.get(position);
+        holder.name.setText(item.getBrand().getBrandName());
+        holder.description.setText(item.getBrand().getBrandDescription());
+        holder.price.setPrice(item.getBudget());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 offerClickListener.onClick(position);
             }
         });
+        if (item.getActionShops() != null && !item.getActionShops().isEmpty()) {
+            holder.address.setText(item.getActionShops().get(0).getAddress());
+        }
+
+
+        Picasso.with(BrandcashApp.getAppContext())
+                .load(data.get(position).getBrand().getBrandImageUrl())
+                .into(holder.image);
+
     }
 
     @Override
@@ -60,16 +74,18 @@ public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecy
 
         public TextView name;
         public TextView description;
-        public TextView price;
+        public PriceView price;
+        public ImageView image;
+        public TextView address;
 
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.name);
             description = (TextView) itemView.findViewById(R.id.description);
-            price = (TextView) itemView.findViewById(R.id.price);
-
+            price = (PriceView) itemView.findViewById(R.id.price);
+            image = (ImageView) itemView.findViewById(R.id.image);
+            address = (TextView) itemView.findViewById(R.id.address);
         }
-
 
     }
 }
