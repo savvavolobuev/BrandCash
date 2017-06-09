@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_gray"
     android:fitsSystemWindows="true"
-    tools:context="com.brandcash.MainActivity">
+    tools:context=".QrResultActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -52,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:text="*************************************************************"
                 android:textColor="#3c4f5e"
@@ -62,6 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:textColor="#3c4f5e"
                 android:textSize="18sp" />
@@ -71,6 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:textColor="#989dab"
                 android:textSize="12sp" />
@@ -80,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:textColor="#989dab"
                 android:textSize="12sp" />
@@ -89,6 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:textColor="#989dab"
                 android:textSize="12sp" />
@@ -98,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:textColor="#989dab"
                 android:textSize="12sp" />
@@ -107,6 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:text="*************************************************************"
                 android:textColor="#3c4f5e"
@@ -140,7 +147,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:maxLines="1"
@@ -149,10 +156,14 @@
                         android:textColor="#3c4f5e"
                         android:textSize="18sp" />
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
 
                     <com.brandcash.ui.PriceView
                         android:id="@+id/sum"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:maxLines="1"
@@ -168,7 +179,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:maxLines="1"
@@ -176,10 +187,14 @@
                         android:textColor="#3c4f5e"
                         android:textSize="14sp" />
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
 
                     <com.brandcash.ui.PriceView
                         android:id="@+id/cashback"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:maxLines="1"
@@ -195,7 +210,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:maxLines="1"
@@ -204,9 +219,14 @@
                         android:textSize="14sp" />
 
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/bonuses"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:maxLines="1"

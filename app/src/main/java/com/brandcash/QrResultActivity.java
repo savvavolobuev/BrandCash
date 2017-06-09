@@ -68,7 +68,7 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        name = (TextView) findViewById(R.id.name);
+        name = (TextView) findViewById(R.id.user);
         inn = (TextView) findViewById(R.id.inn);
         number = (TextView) findViewById(R.id.itemNumber);
         shift = (TextView) findViewById(R.id.shiftNumber);
@@ -93,6 +93,14 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
                     itemsRecycler.setLayoutManager(mLayoutManager);
                     itemsRecycler.setItemAnimator(new DefaultItemAnimator());
                     itemsRecycler.setAdapter(adapter);
+                    name.setText(document.getReceipt().getUser());
+                    inn.setText(document.getReceipt().getUserInn());
+                    number.setText("Чек № " + document.getReceipt().getNds18());
+                    shift.setText("Смена № " + document.getReceipt().getShiftNumber());
+                    operator.setText("Кассир" + document.getReceipt().getOperator());
+                    sum.setPrice(document.getReceipt().getTotalSum());
+                    cashback.setPrice(document.getReceipt().getCashTotalSum());
+                    bonuses.setText(document.getReceipt().getEcashTotalSum() + " ");
                 }
             }
 
