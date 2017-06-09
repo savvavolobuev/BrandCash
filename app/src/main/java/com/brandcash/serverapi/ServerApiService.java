@@ -1,6 +1,8 @@
 package com.brandcash.serverapi;
 
 import com.brandcash.model.AccountData;
+import com.brandcash.model.Document;
+import com.brandcash.model.DocumentResponse;
 import com.brandcash.model.Offer;
 
 import java.util.List;
@@ -19,5 +21,8 @@ public interface ServerApiService {
 
     @GET("/settings")
     Call<AccountData> getSettings();
+
+    @GET("/checkQr")
+    Call<DocumentResponse> checkQr();
 
 }

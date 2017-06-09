@@ -2,6 +2,7 @@ package com.brandcash;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class CaptureQrActivity extends Activity {
             lastText = result.getText();
             barcodeView.setStatusText(result.getText());
             beepManager.playBeepSoundAndVibrate();
+            startActivity(new Intent(CaptureQrActivity.this, QrResultActivity.class));
 
             //Added preview of scanned barcode
             //ImageView imageView = (ImageView) findViewById(R.id.barcodePreview);

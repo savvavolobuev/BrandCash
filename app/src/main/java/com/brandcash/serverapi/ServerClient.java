@@ -1,5 +1,8 @@
 package com.brandcash.serverapi;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 
 import javax.net.ssl.HostnameVerifier;
@@ -12,6 +15,7 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Created by savva.volobuev on 23.05.2017.
@@ -42,10 +46,12 @@ public class ServerClient {
                 return true;
             }
         }).build();
-
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
     }

@@ -11,5 +11,8 @@
     <string name="hint_offer_main">Участвуй в акциях, чтобы заработать рубли</string>
     <string name="hint_bonus">баллов за регистрацию</string>
     <string name="hint_offer">акций</string>
+    <string name="sum">Сумма</string>
+    <string name="cashback">Кэшбэк</string>
+    <string name="bonuses">Баллы</string>
 
 </resources>
