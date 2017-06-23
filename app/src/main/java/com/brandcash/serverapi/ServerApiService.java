@@ -1,14 +1,14 @@
 package com.brandcash.serverapi;
 
 import com.brandcash.model.AccountData;
-import com.brandcash.model.Document;
-import com.brandcash.model.DocumentResponse;
+import com.brandcash.model.ReceiptResponseData;
 import com.brandcash.model.Offer;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by savva.volobuev on 23.05.2017.
@@ -16,13 +16,15 @@ import retrofit2.http.GET;
 
 public interface ServerApiService {
 
-    @GET("/getSpecials")
+    @GET("getSpecials")
     Call<List<Offer>> getSpecials();
 
-    @GET("/settings")
+    @GET("settings")
     Call<AccountData> getSettings();
 
-    @GET("/checkQr")
-    Call<DocumentResponse> checkQr();
+    @GET("receipts/add")
+    Call<ReceiptResponseData> add(@Query("n") String n, @Query("t") String t,
+                                  @Query("s") String s, @Query("fn") String fn,
+                                  @Query("i") String i, @Query("fp") String fp, @Query("sid") String sid);
 
 }

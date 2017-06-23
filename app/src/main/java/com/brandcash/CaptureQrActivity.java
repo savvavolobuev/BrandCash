@@ -37,19 +37,10 @@ public class CaptureQrActivity extends Activity {
     private BarcodeCallback callback = new BarcodeCallback() {
         @Override
         public void barcodeResult(BarcodeResult result) {
-            /*if (result.getText() == null || result.getText().equals(lastText)) {
-                // Prevent duplicate scans
-                return;
-            }*/
-
             lastText = result.getText();
             barcodeView.setStatusText(result.getText());
             beepManager.playBeepSoundAndVibrate();
             startActivity(new Intent(CaptureQrActivity.this, QrResultActivity.class));
-
-            //Added preview of scanned barcode
-            //ImageView imageView = (ImageView) findViewById(R.id.barcodePreview);
-            //imageView.setImageBitmap(result.getBitmapWithResultPoints(Color.YELLOW));
         }
 
         @Override

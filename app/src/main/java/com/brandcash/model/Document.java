@@ -11,11 +11,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Document implements Parcelable{
 
-    @SerializedName("receipt")
-    private Receipt receipt;
+    @SerializedName("receiptData")
+    private ReceiptData receiptData;
 
     protected Document(Parcel in) {
-        receipt = in.readParcelable(Receipt.class.getClassLoader());
+        receiptData = in.readParcelable(ReceiptData.class.getClassLoader());
     }
 
     public static final Creator<Document> CREATOR = new Creator<Document>() {
@@ -37,15 +37,15 @@ public class Document implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(receipt, flags);
+        dest.writeParcelable(receiptData, flags);
     }
 
 
-    public Receipt getReceipt() {
-        return receipt;
+    public ReceiptData getReceiptData() {
+        return receiptData;
     }
 
-    public void setReceipt(Receipt receipt) {
-        this.receipt = receipt;
+    public void setReceiptData(ReceiptData receiptData) {
+        this.receiptData = receiptData;
     }
 }

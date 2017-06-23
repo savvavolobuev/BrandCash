@@ -18,12 +18,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.brandcash.model.Document;
-import com.brandcash.model.DocumentResponse;
+import com.brandcash.model.ReceiptResponseData;
 import com.brandcash.serverapi.ServerClient;
 import com.brandcash.ui.PriceView;
 import com.brandcash.ui.ReceiptItemRecyclerAdapter;
-
-import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,7 +44,7 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
     private TextView bonuses;
     private RecyclerView itemsRecycler;
     private ReceiptItemRecyclerAdapter adapter;
-    private Document document;
+    private ReceiptResponseData responseData;
 
 
     @Override
@@ -82,30 +80,43 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
     @Override
     protected void onStart() {
         super.onStart();
-        Call<DocumentResponse> call = ServerClient.getServerApiService().checkQr();
-        call.enqueue(new Callback<DocumentResponse>() {
+        Call<ReceiptResponseData> call = ServerClient.getServerApiService().add("1", "20170528T080900", "11.40", "8710000100593507", "8334", "4098962504", "TVRRMk9ERTROak13TVRrNAo=");
+        call.enqueue(new Callback<ReceiptResponseData>() {
             @Override
-            public void onResponse(Call<DocumentResponse> call, Response<DocumentResponse> response) {
-                document = response.body().getDocument();
-                if (document != null) {
-                    adapter = new ReceiptItemRecyclerAdapter(document.getReceipt().getItems());
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(QrResultActivity.this);
-                    itemsRecycler.setLayoutManager(mLayoutManager);
-                    itemsRecycler.setItemAnimator(new DefaultItemAnimator());
-                    itemsRecycler.setAdapter(adapter);
-                    name.setText(document.getReceipt().getUser());
-                    inn.setText(document.getReceipt().getUserInn());
-                    number.setText("Чек № " + document.getReceipt().getNds18());
-                    shift.setText("Смена № " + document.getReceipt().getShiftNumber());
-                    operator.setText("Кассир" + document.getReceipt().getOperator());
-                    sum.setPrice(document.getReceipt().getTotalSum());
-                    cashback.setPrice(document.getReceipt().getCashTotalSum());
-                    bonuses.setText(document.getReceipt().getEcashTotalSum() + " ");
+            public void onResponse(Call<ReceiptResponseData> call, Response<ReceiptResponseData> response) {
+                if (response.code() == 200) {
+                    responseData = response.body();
+                    if (responseData != null) {
+                        if (responseData.isFound() == null) {
+
+                        } else if (responseData.isFound()) {
+                            adapter = new ReceiptItemRecyclerAdapter(responseData.getData().getItems());
+                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(QrResultActivity.this);
+                            itemsRecycler.setLayoutManager(mLayoutManager);
+                            itemsRecycler.setItemAnimator(new DefaultItemAnimator());
+                            itemsRecycler.setAdapter(adapter);
+                            name.setText(responseData.getData().getUser());
+                            inn.setText(responseData.getData().getUserInn());
+                            //number.setText("Чек № " + document.getReceiptData().getNds18());
+                            shift.setText("Смена № " + responseData.getData().getShiftNumber());
+                            operator.setText("Кассир " + responseData.getData().getOperator());
+                            sum.setPrice(responseData.getData().getTotalSum());
+                            cashback.setPrice(responseData.getData().getCashTotalSum());
+                            bonuses.setText(responseData.getData().getEcashTotalSum() + " ");
+                        } else {
+
+                        }
+                    }
+                } else if (response.code() == 403) {
+
                 }
+
             }
 
             @Override
-            public void onFailure(Call<DocumentResponse> call, Throwable t) {
+            public void onFailure(Call<ReceiptResponseData> call, Throwable t) {
+                int i = 1;
+                i++;
             }
         });
     }

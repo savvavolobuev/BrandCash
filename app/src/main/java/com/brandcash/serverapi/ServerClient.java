@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServerClient {
 
-    private static final String SERVER_URL = "http://brand.cash";
+    private static final String SERVER_URL = "http://brand.cash/v1/";
     private static Retrofit retrofit;
     private static OkHttpClient client;
 
