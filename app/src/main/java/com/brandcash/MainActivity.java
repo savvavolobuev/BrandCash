@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private View qrCircle;
     private PriceView currentCash;
+    private RelativeLayout cashList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,14 @@ public class MainActivity extends AppCompatActivity
 
         currentCash.setPrice(100);
 
+        cashList = (RelativeLayout) findViewById(R.id.cash_list);
+        cashList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CashListActivity.class));
+            }
+        });
+
     }
 
     @Override
@@ -95,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         call.enqueue(new Callback<AccountData>() {
             @Override
             public void onResponse(Call<AccountData> call, Response<AccountData> response) {
-                AccountData data  = response.body();
+                AccountData data = response.body();
 
             }
 

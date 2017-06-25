@@ -1,6 +1,7 @@
 package com.brandcash.serverapi;
 
 import com.brandcash.model.AccountData;
+import com.brandcash.model.ReceiptListResponseData;
 import com.brandcash.model.ReceiptResponseData;
 import com.brandcash.model.Offer;
 
@@ -26,5 +27,8 @@ public interface ServerApiService {
     Call<ReceiptResponseData> add(@Query("n") String n, @Query("t") String t,
                                   @Query("s") String s, @Query("fn") String fn,
                                   @Query("i") String i, @Query("fp") String fp, @Query("sid") String sid);
+
+    @GET("receipts")
+    Call<ReceiptListResponseData> list(@Query("sid") String sid);
 
 }

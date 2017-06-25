@@ -3,6 +3,8 @@ package com.brandcash.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -32,6 +34,7 @@ public class ReceiptData implements Parcelable {
     private int totalSum;
     private String user;
     private String userInn;
+    private Boolean isFound;
 
     protected ReceiptData(Parcel in) {
         addressToCheckFiscalSign = in.readString();
