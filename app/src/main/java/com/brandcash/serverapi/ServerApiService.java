@@ -20,15 +20,15 @@ public interface ServerApiService {
     @GET("getSpecials")
     Call<List<Offer>> getSpecials();
 
-    @GET("settings")
+    @GET("v1/settings")
     Call<AccountData> getSettings();
 
-    @GET("receipts/add")
+    @GET("v1/receipts/add")
     Call<ReceiptResponseData> add(@Query("n") String n, @Query("t") String t,
                                   @Query("s") String s, @Query("fn") String fn,
                                   @Query("i") String i, @Query("fp") String fp, @Query("sid") String sid);
 
-    @GET("receipts")
+    @GET("v1/receipts")
     Call<ReceiptListResponseData> list(@Query("sid") String sid);
 
 }
