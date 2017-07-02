@@ -18,10 +18,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.brandcash.model.Document;
+import com.brandcash.model.QrLine;
 import com.brandcash.model.ReceiptResponseData;
 import com.brandcash.serverapi.ServerClient;
 import com.brandcash.ui.PriceView;
 import com.brandcash.ui.ReceiptItemRecyclerAdapter;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +41,8 @@ import retrofit2.Response;
 
 public class QrResultActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String EXTRA_QR = "EXTRA_QR";
+    private String qrLine;
     private NavigationView navigationView;
     private TextView name;
     private TextView inn;
@@ -64,7 +74,7 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
         });
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        qrLine = getIntent().getStringExtra(EXTRA_QR);
 
         name = (TextView) findViewById(R.id.user);
         inn = (TextView) findViewById(R.id.inn);
@@ -80,7 +90,9 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
     @Override
     protected void onStart() {
         super.onStart();
-        Call<ReceiptResponseData> call = ServerClient.getServerApiService().add("1", "20170528T080900", "11.40", "8710000100593507", "8334", "4098962504", "TVRRMk9ERTROak13TVRrNAo=");
+        QrLine qrCode = createQrLine();
+
+        Call<ReceiptResponseData> call = ServerClient.getServerApiService().add(qrCode.getN(), qrCode.getT(), qrCode.getS(), qrCode.getFn(), qrCode.getI(), qrCode.getFp(), "TVRRMk9ERTROak13TVRrNAo=");
         call.enqueue(new Callback<ReceiptResponseData>() {
             @Override
             public void onResponse(Call<ReceiptResponseData> call, Response<ReceiptResponseData> response) {
@@ -119,6 +131,60 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
                 i++;
             }
         });
+    }
+
+    private QrLine createQrLine() {
+        QrLine result = new QrLine();
+        try {
+            Map<String, List<String>> params = new HashMap<String, List<String>>();
+            String[] urlParts = qrLine.split("\\?");
+            if (urlParts.length > 1) {
+                String query = urlParts[1];
+                for (String param : query.split("&")) {
+                    String[] pair = param.split("=");
+                    String key = URLDecoder.decode(pair[0], "UTF-8");
+                    String value = "";
+                    if (pair.length > 1) {
+                        value = URLDecoder.decode(pair[1], "UTF-8");
+                    }
+
+                    List<String> values = params.get(key);
+                    if (values == null) {
+                        values = new ArrayList<String>();
+                        params.put(key, values);
+                    }
+                    values.add(value);
+                }
+            } else {
+                String query = urlParts[0];
+                for (String param : query.split("&")) {
+                    String[] pair = param.split("=");
+                    String key = URLDecoder.decode(pair[0], "UTF-8");
+                    String value = "";
+                    if (pair.length > 1) {
+                        value = URLDecoder.decode(pair[1], "UTF-8");
+                    }
+
+                    List<String> values = params.get(key);
+                    if (values == null) {
+                        values = new ArrayList<String>();
+                        params.put(key, values);
+                    }
+                    values.add(value);
+                }
+            }
+            result.setN(params.get("n") == null || params.get("n").isEmpty() ? "" : params.get("n").get(0));
+            result.setFn(params.get("fn") == null || params.get("fn").isEmpty() ? "" : params.get("fn").get(0));
+            result.setS(params.get("s") == null || params.get("s").isEmpty() ? "" : params.get("s").get(0));
+            result.setT(params.get("t") == null || params.get("t").isEmpty() ? "" : params.get("t").get(0));
+            result.setFp(params.get("fp") == null || params.get("fp").isEmpty() ? "" : params.get("fp").get(0));
+            result.setI(params.get("i") == null || params.get("i").isEmpty() ? "" : params.get("i").get(0));
+        } catch (UnsupportedEncodingException ex) {
+            throw new AssertionError(ex);
+        }
+
+
+        return result;
     }
 
     @Override

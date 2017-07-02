@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brandcash.model.User;
 import com.brandcash.model.UserRegestrated;
@@ -92,13 +93,14 @@ public class RegActivity extends AppCompatActivity {
                     public void onResponse(Call<UserRegestrated> call, Response<UserRegestrated> response) {
                         if (response.body() != null && response.code() == 200) {
                             startActivity(new Intent(RegActivity.this, RegSmsActivity.class).putExtra(RegSmsActivity.EXTRA_PHONE_REG, phone.getText().toString()));
+                        }else{
+                            Toast.makeText(RegActivity.this, "Ошибка регистрации",Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<UserRegestrated> call, Throwable t) {
-                        int i = 1;
-                        i++;
+                        Toast.makeText(RegActivity.this, "Ошибка регистрации",Toast.LENGTH_SHORT).show();
                     }
                 });
             }

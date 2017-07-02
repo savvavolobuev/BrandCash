@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brandcash.model.Code;
 import com.brandcash.model.PhoneNum;
@@ -107,8 +108,7 @@ public class EnterSmsActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<Session> call, Throwable t) {
-                                    int i = 1;
-                                    i++;
+                                    Toast.makeText(EnterSmsActivity.this, "Ошибка авторизации",Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -118,8 +118,7 @@ public class EnterSmsActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Code> call, Throwable t) {
-                        int i = 1;
-                        i++;
+                        Toast.makeText(EnterSmsActivity.this, "Ошибка авторизации",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
