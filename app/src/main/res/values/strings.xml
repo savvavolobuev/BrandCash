@@ -17,5 +17,14 @@
     <string name="cashback">Кэшбэк</string>
     <string name="bonuses">Баллы</string>
     <string name="receipt">Чек</string>
-
+    <string name="enter">Войти</string>
+    <string name="reg">Зарегистрироваться</string>
+    <string name="reg_label">Регистрация</string>
+    <string name="enter_label">Вход</string>
+    <string name="next">Далее</string>
+    <string name="help_sms">Укажите номер вашего телфона и нажмите "Далее". Мы вышлем вам код для подтверждения</string>
+    <string name="sms_enter">Введите код из СМС соощения</string>
+    <string name="reg_hint">Регистрируясь, вы принимаете условия</string>
+    <string name="sms_again">Отправить код повторно</string>
+    <string name="reg_agr">пользовательского соглашения</string>
 </resources>

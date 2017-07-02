@@ -1,14 +1,21 @@
 package com.brandcash.serverapi;
 
 import com.brandcash.model.AccountData;
+import com.brandcash.model.Code;
+import com.brandcash.model.PhoneNum;
 import com.brandcash.model.ReceiptListResponseData;
 import com.brandcash.model.ReceiptResponseData;
 import com.brandcash.model.Offer;
+import com.brandcash.model.Session;
+import com.brandcash.model.User;
+import com.brandcash.model.UserRegestrated;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -16,6 +23,15 @@ import retrofit2.http.Query;
  */
 
 public interface ServerApiService {
+
+    @POST("v1/users")
+    Call<UserRegestrated> regUser(@Body User user);
+
+    @POST("v1/users/restore_phone_code")
+    Call<Code> restorePhoneCode(@Body PhoneNum phnum);
+
+    @POST("v1/sessions")
+    Call<Session> getSession(@Query("phone") String phone, @Query("code") String code);
 
     @GET("getSpecials")
     Call<List<Offer>> getSpecials();

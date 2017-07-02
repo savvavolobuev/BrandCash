@@ -10,4 +10,6 @@
     <color name="red_start">#ff2c65</color>
     <color name="red_end">#fb5740</color>
     <color name="grayBackground">#efecec</color>
+    <color name="darkgraytext">#989dab</color>
+    <color name="green">#5bcf8f</color>
 </resources>

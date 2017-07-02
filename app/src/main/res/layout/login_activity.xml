@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/green"
+        android:layout_width="170dp"
+        android:layout_height="170dp"></LinearLayout>
+    
+    
+    <Button
+        android:layout_marginTop="100dp"
+        android:id="@+id/enter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:background="@drawable/button_ripple"
+        android:paddingBottom="18dp"
+        android:paddingTop="18dp"
+        android:text="@string/enter"
+        android:textAllCaps="true"
+        android:textColor="@color/darkgraytext"
+        android:textSize="12sp" />
+
+    <Button
+        android:layout_marginTop="16dp"
+        android:id="@+id/reg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:background="@drawable/button_green_ripple"
+        android:paddingBottom="18dp"
+        android:paddingTop="18dp"
+        android:text="@string/reg"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+</LinearLayout>
