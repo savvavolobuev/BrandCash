@@ -17,6 +17,7 @@ import com.brandcash.model.Code;
 import com.brandcash.model.PhoneNum;
 import com.brandcash.model.Session;
 import com.brandcash.serverapi.ServerClient;
+import com.brandcash.util.SharedPrefs;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -101,13 +102,17 @@ public class RegSmsActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<Session> call, Response<Session> response) {
                                     if (response.body() != null && response.code() == 200) {
+                                        Session session = response.body();
+                                        SharedPrefs.setPrefSid(session.getSid());
+                                        SharedPrefs.setPrefExpires(session.getExpires());
+                                        SharedPrefs.setPrefUserId(session.getUserId());
                                         startActivity(new Intent(RegSmsActivity.this, MainActivity.class));
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<Session> call, Throwable t) {
-                                    Toast.makeText(RegSmsActivity.this, "Ошибка регистрации",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegSmsActivity.this, "Ошибка регистрации", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -117,7 +122,7 @@ public class RegSmsActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Code> call, Throwable t) {
-                        Toast.makeText(RegSmsActivity.this, "Ошибка регистрации",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegSmsActivity.this, "Ошибка регистрации", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

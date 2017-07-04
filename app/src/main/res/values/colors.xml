@@ -12,4 +12,5 @@
     <color name="grayBackground">#efecec</color>
     <color name="darkgraytext">#989dab</color>
     <color name="green">#5bcf8f</color>
+    <color name="mid_gray">#f6f6f6</color>
 </resources>

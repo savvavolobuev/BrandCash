@@ -38,11 +38,11 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:background="@drawable/cash_ripple"
             android:id="@+id/cash_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/cash_ripple">
 
             <com.brandcash.ui.PriceView
                 android:id="@+id/current_cash"
@@ -53,68 +53,156 @@
                 android:textSize="34sp" />
 
             <TextView
+                android:id="@+id/cash_updated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/current_cash"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="sans-serif-condensed"
-                android:text="@string/hint_offer_main"
                 android:textColor="#989dab"
                 android:textSize="12sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/first_enter_relative"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@color/colorAccent">
 
             <LinearLayout
-                android:id="@+id/bonus_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/bonus_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center_horizontal||top"
+                        android:includeFontPadding="false"
+                        android:text="100"
+                        android:textColor="#ffffff"
+                        android:textSize="36sp" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="top"
+                        android:paddingLeft="8dp"
+                        android:text="@string/hint_bonus"
+                        android:textColor="#ffffff"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Сканируй чеки чтобы заработать больше"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/bonuses"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/mid_gray">
+
+            <LinearLayout
+                android:id="@+id/main_screen_bonus_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/bonus_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center_horizontal"
                     android:text="100"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="36sp" />
 
                 <TextView
+                    android:id="@+id/bonus_word"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center_horizontal"
                     android:paddingLeft="8dp"
-                    android:text="@string/hint_bonus"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="24sp" />
 
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/receipt_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/bonus_layout"
+                android:layout_below="@+id/main_screen_bonus_layout"
                 android:layout_centerHorizontal="true"
-                android:text="Сканируй чеки чтобы заработать больше"
-                android:textColor="#ffffff"
-                android:textSize="12sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/receipt_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bonus_layout"
+                    android:layout_centerHorizontal="true"
+                    android:paddingRight="10dp"
+                    android:textColor="#989dab"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bonus_layout"
+                    android:layout_centerHorizontal="true"
+                    android:text="на сумму"
+                    android:textColor="#989dab"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/receipt_sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#989dab"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
 
 
         </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/background_gray">
+            android:background="@color/grayBackground">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -123,7 +211,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-
+                    android:id="@+id/main_screen_offers_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"

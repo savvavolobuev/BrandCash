@@ -24,13 +24,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brandcash.model.AccountData;
+import com.brandcash.model.AccountMain;
 import com.brandcash.model.Offer;
 import com.brandcash.serverapi.ServerClient;
+import com.brandcash.ui.FormatStringUtil;
 import com.brandcash.ui.OfferListRecyclerAdapter;
 import com.brandcash.ui.PriceView;
+import com.brandcash.util.SharedPrefs;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,6 +50,14 @@ public class MainActivity extends AppCompatActivity
     private View qrCircle;
     private PriceView currentCash;
     private RelativeLayout cashList;
+    private TextView offerCount;
+    private TextView receiptSum;
+    private TextView receiptCount;
+    private RelativeLayout firstLaunchLayout;
+    private RelativeLayout bonusesLayout;
+    private TextView cashUpdated;
+    private TextView bonusWord;
+    private TextView bonusCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +65,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         currentCash = (PriceView) findViewById(R.id.current_cash);
+        cashUpdated = (TextView) findViewById(R.id.cash_updated);
 
         currentCash.setPrice(100);
 
@@ -91,6 +97,13 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, CashListActivity.class));
             }
         });
+        receiptSum = (TextView) findViewById(R.id.receipt_sum);
+        receiptCount = (TextView) findViewById(R.id.receipt_count);
+        offerCount = (TextView) findViewById(R.id.main_screen_offers_count);
+        firstLaunchLayout = (RelativeLayout) findViewById(R.id.first_enter_relative);
+        bonusesLayout = (RelativeLayout) findViewById(R.id.bonuses);
+        bonusWord = (TextView) findViewById(R.id.bonus_word);
+        bonusCount = (TextView) findViewById(R.id.bonus_count);
 
     }
 
@@ -101,16 +114,38 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initSettings() {
-        Call<AccountData> call = ServerClient.getServerApiService().getSettings();
-        call.enqueue(new Callback<AccountData>() {
+        Call<AccountMain> call = ServerClient.getServerApiService().getAccountData(SharedPrefs.getPrefUserId(), SharedPrefs.getPrefSid());
+        call.enqueue(new Callback<AccountMain>() {
             @Override
-            public void onResponse(Call<AccountData> call, Response<AccountData> response) {
-                AccountData data = response.body();
+            public void onResponse(Call<AccountMain> call, Response<AccountMain> response) {
+                if (response != null && response.code() == 200) {
+                    AccountMain data = response.body();
+                    firstLaunchLayout.setVisibility(SharedPrefs.isPrefFirst() ? View.VISIBLE : View.GONE);
+                    bonusesLayout.setVisibility(SharedPrefs.isPrefFirst() ? View.GONE : View.VISIBLE);
+                    SharedPrefs.setPrefFirst(false);
+                    offerCount.setText(data.getOffersCount() + "");
+                    receiptCount.setText(data.getPoints().getBalance() + " " + FormatStringUtil.getDependentStringReceipt(data.getPoints().getBalance()));
+                    receiptSum.setText(" " + data.getPoints().getReceiptsSum());
+                    currentCash.setPrice(data.getCash().getBalance());
+                    bonusCount.setText(data.getPoints().getBalance() + "");
+                    bonusWord.setText(FormatStringUtil.getDependentStringBonus(data.getPoints().getBalance()));
+                    SimpleDateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.ssssss");
+                    SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+                    Date date = null;
+                    try {
+                        date = serverFormat.parse(data.getCash().getUpdatedSt());
+                        cashUpdated.setText("Обновлено " + format.format(date));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
 
             }
 
             @Override
-            public void onFailure(Call<AccountData> call, Throwable t) {
+            public void onFailure(Call<AccountMain> call, Throwable t) {
                 Log.d("httpserver", "fail");
             }
         });

@@ -1,6 +1,7 @@
 package com.brandcash.serverapi;
 
 import com.brandcash.model.AccountData;
+import com.brandcash.model.AccountMain;
 import com.brandcash.model.Code;
 import com.brandcash.model.PhoneNum;
 import com.brandcash.model.ReceiptListResponseData;
@@ -16,6 +17,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -32,6 +34,10 @@ public interface ServerApiService {
 
     @POST("v1/sessions")
     Call<Session> getSession(@Query("phone") String phone, @Query("code") String code);
+
+    @GET("v1/users/{id}/accounts")
+    Call<AccountMain> getAccountData(@Path("id") int userId, @Query("sid") String sid);
+
 
     @GET("getSpecials")
     Call<List<Offer>> getSpecials();
