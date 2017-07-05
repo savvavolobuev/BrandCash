@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
                     SharedPrefs.setPrefFirst(false);
                     offerCount.setText(data.getOffersCount() + "");
                     receiptCount.setText(data.getPoints().getBalance() + " " + FormatStringUtil.getDependentStringReceipt(data.getPoints().getBalance()));
-                    receiptSum.setText(" " + data.getPoints().getReceiptsSum());
+                    receiptSum.setText(" " + data.getPoints().getReceiptsSum() + FormatStringUtil.getDependentStringRuble(data.getPoints().getReceiptsSum()));
                     currentCash.setPrice(data.getCash().getBalance());
                     bonusCount.setText(data.getPoints().getBalance() + "");
                     bonusWord.setText(FormatStringUtil.getDependentStringBonus(data.getPoints().getBalance()));
@@ -140,8 +140,6 @@ public class MainActivity extends AppCompatActivity
                     }
 
                 }
-
-
             }
 
             @Override

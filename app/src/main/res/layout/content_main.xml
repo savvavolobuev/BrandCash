@@ -44,23 +44,31 @@
             android:layout_weight="1"
             android:background="@drawable/cash_ripple">
 
-            <com.brandcash.ui.PriceView
-                android:id="@+id/current_cash"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="#3c4f5e"
-                android:textSize="34sp" />
-
-            <TextView
-                android:id="@+id/cash_updated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/current_cash"
                 android:layout_centerHorizontal="true"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#989dab"
-                android:textSize="12sp" />
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <com.brandcash.ui.PriceView
+                    android:id="@+id/current_cash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#3c4f5e"
+                    android:textSize="34sp" />
+
+                <TextView
+                    android:id="@+id/cash_updated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/current_cash"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="#989dab"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -82,14 +90,13 @@
                     android:id="@+id/bonus_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
                         android:fontFamily="sans-serif-condensed"
-                        android:gravity="center_horizontal||top"
                         android:includeFontPadding="false"
                         android:text="100"
                         android:textColor="#ffffff"
@@ -99,7 +106,6 @@
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
                         android:fontFamily="sans-serif-condensed"
                         android:gravity="top"
                         android:paddingLeft="8dp"
@@ -129,72 +135,78 @@
             android:background="@color/mid_gray">
 
             <LinearLayout
-                android:id="@+id/main_screen_bonus_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/bonus_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center_horizontal"
-                    android:text="100"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="36sp" />
-
-                <TextView
-                    android:id="@+id/bonus_word"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center_horizontal"
-                    android:paddingLeft="8dp"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="24sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/receipt_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/main_screen_bonus_layout"
                 android:layout_centerHorizontal="true"
-                android:orientation="horizontal">
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/receipt_count"
+                <LinearLayout
+                    android:id="@+id/main_screen_bonus_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/bonus_layout"
-                    android:layout_centerHorizontal="true"
-                    android:paddingRight="10dp"
-                    android:textColor="#989dab"
-                    android:textSize="18sp" />
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                <TextView
+                    <TextView
+                        android:id="@+id/bonus_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center_horizontal"
+                        android:text="100"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="36sp" />
+
+                    <TextView
+                        android:id="@+id/bonus_word"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center_horizontal"
+                        android:paddingLeft="8dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/receipt_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/bonus_layout"
+                    android:layout_below="@+id/main_screen_bonus_layout"
                     android:layout_centerHorizontal="true"
-                    android:text="на сумму"
-                    android:textColor="#989dab"
-                    android:textSize="18sp" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/receipt_sum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="#989dab"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/receipt_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/bonus_layout"
+                        android:layout_centerHorizontal="true"
+                        android:paddingRight="10dp"
+                        android:textColor="#989dab"
+                        android:textSize="12sp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/bonus_layout"
+                        android:layout_centerHorizontal="true"
+                        android:text="на сумму"
+                        android:textColor="#989dab"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/receipt_sum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="#989dab"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
             </LinearLayout>
-
-
         </RelativeLayout>
 
 
@@ -218,7 +230,7 @@
                     android:gravity="center_horizontal"
                     android:text="150"
                     android:textColor="#3c4f5e"
-                    android:textSize="24sp" />
+                    android:textSize="36sp" />
 
                 <TextView
                     android:layout_width="wrap_content"

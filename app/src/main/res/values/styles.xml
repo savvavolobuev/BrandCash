@@ -15,6 +15,18 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+    </style>
 
+    <style name="TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabSelectedTextColor">@android:color/white</item>
+        <item name="tabIndicatorHeight">1.5dp</item>
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabTextAppearance">@style/TabLayoutTextAppeareance</item>
+    </style>
+
+    <style name="TabLayoutTextAppeareance" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/darkgraytext</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
 </resources>

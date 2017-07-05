@@ -29,4 +29,20 @@ public class FormatStringUtil {
             return "чека";
         }
     }
+
+    public static String getDependentStringRuble(String count) {
+        try {
+            int temp = Integer.valueOf(count);
+            int last = temp % 10;
+            if (last == 0 || last == 5 || last == 6 || last == 7 || last == 8 || last == 9) {
+                return "рублей";
+            } else if (last == 1) {
+                return "рубль";
+            } else {
+                return "рубля";
+            }
+        } catch (NumberFormatException ex) {
+            return "рублей";
+        }
+    }
 }

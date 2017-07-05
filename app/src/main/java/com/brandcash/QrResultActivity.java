@@ -23,6 +23,7 @@ import com.brandcash.model.ReceiptResponseData;
 import com.brandcash.serverapi.ServerClient;
 import com.brandcash.ui.PriceView;
 import com.brandcash.ui.ReceiptItemRecyclerAdapter;
+import com.brandcash.util.SharedPrefs;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -92,7 +93,7 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
         super.onStart();
         QrLine qrCode = createQrLine();
 
-        Call<ReceiptResponseData> call = ServerClient.getServerApiService().add(qrCode.getN(), qrCode.getT(), qrCode.getS(), qrCode.getFn(), qrCode.getI(), qrCode.getFp(), "TVRRMk9ERTROak13TVRrNAo=");
+        Call<ReceiptResponseData> call = ServerClient.getServerApiService().add(qrCode.getN(), qrCode.getT(), qrCode.getS(), qrCode.getFn(), qrCode.getI(), qrCode.getFp(), SharedPrefs.getPrefSid());
         call.enqueue(new Callback<ReceiptResponseData>() {
             @Override
             public void onResponse(Call<ReceiptResponseData> call, Response<ReceiptResponseData> response) {

@@ -14,20 +14,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.brandcash.model.ReceiptData;
+import com.brandcash.model.CashListResponseData;
 import com.brandcash.model.ReceiptListResponseData;
 import com.brandcash.serverapi.ServerClient;
 import com.brandcash.ui.BonusFragment;
 import com.brandcash.ui.RubleFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.brandcash.util.SharedPrefs;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +48,7 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.cash);
         setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -95,37 +93,62 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
     @Override
     protected void onStart() {
         super.onStart();
-        Call<ReceiptListResponseData> call = ServerClient.getServerApiService().list("TVRRMk9ERTROak13TVRrNAo=");
-        call.enqueue(new Callback<ReceiptListResponseData>() {
+        initCash();
+    }
+
+    private void initCash() {
+        Call<CashListResponseData> call = ServerClient.getServerApiService().listCash(SharedPrefs.getPrefUserId(), SharedPrefs.getPrefSid());
+        call.enqueue(new Callback<CashListResponseData>() {
 
             @Override
-            public void onResponse(Call<ReceiptListResponseData> call, Response<ReceiptListResponseData> response) {
-                if (response != null && response.body() != null) {
-                    progressBar.setVisibility(View.GONE);
-                    tabs.setVisibility(View.VISIBLE);
-                    viewPager.setVisibility(View.VISIBLE);
-                    tabs.setupWithViewPager(viewPager);
-                    adapter = new CashListAdapter(getSupportFragmentManager(), response.body());
-                    viewPager.setAdapter(adapter);
+            public void onResponse(Call<CashListResponseData> call, Response<CashListResponseData> response) {
+                if (response.code() == 200) {
+                    final CashListResponseData data = response.body();
+                    if (data != null) {
+                        if (response != null && response.body() != null) {
+                            Call<ReceiptListResponseData> callReceipts = ServerClient.getServerApiService().listReceipts("TVRRMk9ERTROak13TVRrNAo=");
+                            callReceipts.enqueue(new Callback<ReceiptListResponseData>() {
+
+                                @Override
+                                public void onResponse(Call<ReceiptListResponseData> call, Response<ReceiptListResponseData> response) {
+                                    if (response != null && response.body() != null) {
+                                        progressBar.setVisibility(View.GONE);
+                                        tabs.setVisibility(View.VISIBLE);
+                                        viewPager.setVisibility(View.VISIBLE);
+                                        tabs.setupWithViewPager(viewPager);
+                                        adapter = new CashListAdapter(getSupportFragmentManager(), response.body(), data);
+                                        viewPager.setAdapter(adapter);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ReceiptListResponseData> call, Throwable t) {
+
+                                }
+                            });
+                        }
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<ReceiptListResponseData> call, Throwable t) {
+            public void onFailure(Call<CashListResponseData> call, Throwable t) {
 
             }
         });
-
     }
+
 
     public static class CashListAdapter extends FragmentStatePagerAdapter {
         private static int NUM_ITEMS = 2;
         private int mCurrentPosition = -1;
         private ReceiptListResponseData bonusData;
+        private CashListResponseData cashData;
 
-        public CashListAdapter(FragmentManager fragmentManager, ReceiptListResponseData bonusData) {
+        public CashListAdapter(FragmentManager fragmentManager, ReceiptListResponseData bonusData, CashListResponseData cashData) {
             super(fragmentManager);
             this.bonusData = bonusData;
+            this.cashData = cashData;
         }
 
         @Override
@@ -137,7 +160,7 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new RubleFragment();
+                    return RubleFragment.newInstance(cashData);
                 case 1:
                     return BonusFragment.newInstance(bonusData);
                 default:
