@@ -1,5 +1,6 @@
 package com.brandcash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -62,6 +63,15 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabs = (TabLayout) findViewById(R.id.tabs);
         progressBar = (ProgressBar) findViewById(R.id.progress);
+        View exit = findViewById(R.id.footer);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CashListActivity.this, LoginActivity.class );
+                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

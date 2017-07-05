@@ -66,6 +66,15 @@ public class OfferInfoActivity extends AppCompatActivity implements NavigationVi
         brandUrl = (TextView) findViewById(R.id.brand_url);
         offerDescription = (TextView) findViewById(R.id.description);
         priceView = (PriceView) findViewById(R.id.price);
+        View exit = findViewById(R.id.footer);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OfferInfoActivity.this, LoginActivity.class );
+                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                startActivity(intent);
+            }
+        });
     }
 
 

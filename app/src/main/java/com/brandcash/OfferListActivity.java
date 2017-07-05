@@ -69,6 +69,15 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
         navigationView.getMenu().getItem(2).setChecked(true);
         setMenuCounter(R.id.nav_offer, 13);
         recyclerView = (RecyclerView) findViewById(R.id.offer_list);
+        View exit = findViewById(R.id.footer);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OfferListActivity.this, LoginActivity.class );
+                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

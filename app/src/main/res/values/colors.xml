@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3C4F5E</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#5BD090</color>
-    <color name="navBackground">#CAD3DB</color>
+    <color name="navBackground">#c9d2da</color>
     <color name="qrCircle">#FC4150</color>
     <color name="background_gray">#F4F3F5</color>
     <color name="camera_transparent">#80000000</color>

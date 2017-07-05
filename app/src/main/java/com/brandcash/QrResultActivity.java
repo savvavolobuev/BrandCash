@@ -86,6 +86,15 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
         cashback = (PriceView) findViewById(R.id.cashback);
         bonuses = (TextView) findViewById(R.id.bonuses);
         itemsRecycler = (RecyclerView) findViewById(R.id.itemsRecycler);
+        View exit = findViewById(R.id.footer);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QrResultActivity.this, LoginActivity.class );
+                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

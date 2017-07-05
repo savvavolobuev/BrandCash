@@ -7,6 +7,7 @@
     <string name="profile">Профиль</string>
     <string name="cash">Счет</string>
     <string name="offer">Акции</string>
+    <string name="cards">Мои карты</string>
     <string name="scan_text">Сканировать QR-код на чеке</string>
     <string name="hint_offer_main">Участвуй в акциях, чтобы заработать рубли</string>
     <string name="hint_bonus">баллов за регистрацию</string>
@@ -27,4 +28,7 @@
     <string name="reg_hint">Регистрируясь, вы принимаете условия</string>
     <string name="sms_again">Отправить код повторно</string>
     <string name="reg_agr">пользовательского соглашения</string>
+    <string name="exit">Вы хотите выйти?</string>
+    <string name="positive">ДА</string>
+    <string name="negative">НЕТ</string>
 </resources>

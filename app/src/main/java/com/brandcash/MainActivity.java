@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.brandcash.model.AccountData;
 import com.brandcash.model.AccountMain;
 import com.brandcash.model.Offer;
@@ -103,6 +104,16 @@ public class MainActivity extends AppCompatActivity
         bonusWord = (TextView) findViewById(R.id.bonus_word);
         bonusCount = (TextView) findViewById(R.id.bonus_count);
 
+        View exit = findViewById(R.id.footer);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -168,7 +179,32 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
+            new MaterialDialog.Builder(MainActivity.this)
+                    .title(R.string.exit)
+                    .autoDismiss(false)
+                    //.content(R.string.)
+                    .positiveText(R.string.positive)
+                    .negativeText(R.string.negative)
+                    //.positiveColor(setColor())
+                    .callback(new MaterialDialog.ButtonCallback() {
+                        @Override
+                        public void onPositive(MaterialDialog dialog) {
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onNegative(MaterialDialog dialog) {
+                            dialog.dismiss();
+                        }
+                    })
+                    // .negativeColor(setColor())
+                    // .typeface(titleAndActions, contentAndListItems)
+                    .build()
+                    .show();
+
         }
     }
 
