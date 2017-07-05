@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setMenuCounter(R.id.nav_offer, 13);
-
         qrCircle = findViewById(R.id.qr);
         qrCircle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +122,8 @@ public class MainActivity extends AppCompatActivity
                     bonusesLayout.setVisibility(SharedPrefs.isPrefFirst() ? View.GONE : View.VISIBLE);
                     SharedPrefs.setPrefFirst(false);
                     offerCount.setText(data.getOffersCount() + "");
-                    receiptCount.setText(data.getPoints().getBalance() + " " + FormatStringUtil.getDependentStringReceipt(data.getPoints().getBalance()));
+                    setMenuCounter(R.id.nav_offer, data.getOffersCount());
+                    receiptCount.setText(data.getPoints().getReceiptsCounts() + " " + FormatStringUtil.getDependentStringReceipt(Integer.valueOf(data.getPoints().getReceiptsCounts())));
                     receiptSum.setText(" " + data.getPoints().getReceiptsSum() + FormatStringUtil.getDependentStringRuble(data.getPoints().getReceiptsSum()));
                     currentCash.setPrice(data.getCash().getBalance());
                     bonusCount.setText(data.getPoints().getBalance() + "");
@@ -185,7 +184,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setMenuCounter(@IdRes int itemId, int count) {
         TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView().findViewById(R.id.counter);
-        view.setText(count > 0 ? String.valueOf(count) : null);
+        view.setText(String.valueOf(count));
     }
 
     @Override

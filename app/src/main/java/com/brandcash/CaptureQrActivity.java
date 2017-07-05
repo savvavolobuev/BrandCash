@@ -18,6 +18,7 @@ import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.BeepManager;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.BarcodeView;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import java.util.List;
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class CaptureQrActivity extends Activity {
     private static final String TAG = CaptureQrActivity.class.getSimpleName();
-    private DecoratedBarcodeView barcodeView;
+    private BarcodeView barcodeView;
     private BeepManager beepManager;
     private String lastText;
     private static final int CAMERA_PERM = 32;
@@ -42,7 +43,7 @@ public class CaptureQrActivity extends Activity {
                 return;
             }
             lastText = result.getText();
-            barcodeView.setStatusText(result.getText());
+            //barcodeView.setStatusText(result.getText());
             beepManager.playBeepSoundAndVibrate();
             startActivity(new Intent(CaptureQrActivity.this, QrResultActivity.class).putExtra(QrResultActivity.EXTRA_QR, lastText));
         }
@@ -58,9 +59,10 @@ public class CaptureQrActivity extends Activity {
 
         setContentView(R.layout.scan);
 
-        barcodeView = (DecoratedBarcodeView) findViewById(R.id.barcode_scanner);
-        barcodeView.setStatusText("");
+        barcodeView = (BarcodeView) findViewById(R.id.barcode_scanner);
+        //barcodeView.setStatusText("");
         barcodeView.decodeContinuous(callback);
+
 
         beepManager = new BeepManager(this);
 

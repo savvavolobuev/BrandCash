@@ -11,6 +11,7 @@ import com.brandcash.BrandcashApp;
 import com.brandcash.R;
 import com.brandcash.model.Offer;
 
+import com.brandcash.model.OfferData;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecyclerAdapter.ViewHolder> {
 
-    private List<Offer> data;
+    private List<OfferData> data;
     private OfferClickListener offerClickListener;
 
 
@@ -29,7 +30,7 @@ public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecy
         void onClick(int position);
     }
 
-    public OfferListRecyclerAdapter(List<Offer> offers, OfferClickListener offerClickListener) {
+    public OfferListRecyclerAdapter(List<OfferData> offers, OfferClickListener offerClickListener) {
         this.offerClickListener = offerClickListener;
         this.data = offers;
     }
@@ -44,23 +45,23 @@ public class OfferListRecyclerAdapter extends RecyclerView.Adapter<OfferListRecy
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Offer item = data.get(position);
-        holder.name.setText(item.getBrand().getBrandName());
-        holder.description.setText(item.getBrand().getBrandDescription());
-        holder.price.setPrice(item.getBudget());
+        OfferData item = data.get(position);
+        holder.name.setText(item.getBrand().getName());
+        holder.description.setText(item.getDescription());
+        holder.price.setPrice(item.getCashBack());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 offerClickListener.onClick(position);
             }
         });
-        if (item.getActionShops() != null && !item.getActionShops().isEmpty()) {
+        /*if (item != null && !item.getActionShops().isEmpty()) {
             holder.address.setText(item.getActionShops().get(0).getAddress());
-        }
+        }*/
 
 
         Picasso.with(BrandcashApp.getAppContext())
-                .load(data.get(position).getBrand().getBrandImageUrl())
+                .load(item.getBrand().getImageUrl())
                 .into(holder.image);
 
     }

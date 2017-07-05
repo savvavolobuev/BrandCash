@@ -34,18 +34,27 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@android:color/white"
-            android:orientation="horizontal"
-            android:padding="24dp">
+            android:orientation="horizontal">
 
             <com.brandcash.ui.PriceView
+                android:padding="24dp"
                 android:id="@+id/price"
+                android:textStyle="bold"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.3"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center" />
 
+            <View
+                android:background="#f0f0f0"
+                android:layout_width="1px"
+                android:layout_height="match_parent"/>
+
             <TextView
+                android:padding="24dp"
                 android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -53,8 +62,8 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
-                android:textColor="#3c4f5e"
-                android:textSize="12sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -82,7 +91,7 @@
                 <ImageView
                     android:id="@+id/image"
                     android:layout_width="100dp"
-                    android:layout_height="45dp"
+                    android:layout_height="85dp"
                     android:scaleType="fitStart" />
 
                 <TextView

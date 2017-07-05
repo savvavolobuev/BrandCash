@@ -4,6 +4,8 @@ import com.brandcash.model.AccountData;
 import com.brandcash.model.AccountMain;
 import com.brandcash.model.CashListResponseData;
 import com.brandcash.model.Code;
+import com.brandcash.model.OfferData;
+import com.brandcash.model.OffersResponse;
 import com.brandcash.model.PhoneNum;
 import com.brandcash.model.ReceiptListResponseData;
 import com.brandcash.model.ReceiptResponseData;
@@ -56,5 +58,8 @@ public interface ServerApiService {
 
     @GET("v1/users/{id}/accounts/cash")
     Call<CashListResponseData> listCash(@Path("id") int userId, @Query("sid") String sid);
+
+    @GET("v1/users/{id}/offers")
+    Call<OffersResponse> listOffers(@Path("id") int userId, @Query("sid") String sid);
 
 }

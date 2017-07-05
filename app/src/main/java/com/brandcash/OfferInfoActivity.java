@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brandcash.model.Offer;
+import com.brandcash.model.OfferData;
 import com.brandcash.ui.PriceView;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +28,7 @@ import com.squareup.picasso.Picasso;
 
 public class OfferInfoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private NavigationView navigationView;
-    private Offer offer;
+    private OfferData offer;
     private TextView brandDescription;
     private TextView brandUrl;
     private TextView offerDescription;
@@ -71,12 +72,12 @@ public class OfferInfoActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onStart() {
         super.onStart();
-        brandDescription.setText(offer.getBrand().getBrandDescription());
-        brandUrl.setText(offer.getBrand().getBrandSiteUrl());
+        brandDescription.setText(offer.getDescription());
+        brandUrl.setText(offer.getBrand().getImageUrl());
         offerDescription.setText(offer.getDescription());
-        priceView.setPrice(offer.getBudget());
+        priceView.setPrice(offer.getCashBack());
         Picasso.with(BrandcashApp.getAppContext())
-                .load(offer.getBrand().getBrandImageUrl())
+                .load(offer.getBrand().getImageUrl())
                 .into(brandImage);
     }
 

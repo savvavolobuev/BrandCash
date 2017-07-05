@@ -3,12 +3,15 @@ package com.brandcash.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by savva.volobuev on 04.07.2017.
  */
 public class AccountMain implements Parcelable{
 
     private Cash cash;
+    @SerializedName("offers_count")
     private int offersCount;
     private Points points;
 

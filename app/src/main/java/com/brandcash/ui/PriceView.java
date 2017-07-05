@@ -176,7 +176,11 @@ public class PriceView extends TextView {
             spannableString.setSpan(new SuperscriptSpan(), formatted.lastIndexOf(symbols.getGroupingSeparator()), formatted.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            return formatter.format(price);
+            String formatted = formatter.format(price);
+            SpannableString spannableString = new SpannableString(formatted);
+            spannableString.setSpan(new StyleSpan(Typeface.BOLD),
+                    0,spannableString.length(), 0);
+            return spannableString;
         }
     }
 }

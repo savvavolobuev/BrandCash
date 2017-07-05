@@ -23,9 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brandcash.model.Offer;
+import com.brandcash.model.OfferData;
+import com.brandcash.model.OffersResponse;
 import com.brandcash.serverapi.ServerApiService;
 import com.brandcash.serverapi.ServerClient;
 import com.brandcash.ui.OfferListRecyclerAdapter;
+import com.brandcash.util.SharedPrefs;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -42,7 +45,7 @@ import retrofit2.Response;
 public class OfferListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OfferListRecyclerAdapter.OfferClickListener {
     public static final String EXTRA_OFFER = "EXTRA_OFFER";
     private NavigationView navigationView;
-    private List<Offer> offers;
+    private OffersResponse offers;
     private RecyclerView recyclerView;
     private OfferListRecyclerAdapter adapter;
 
@@ -134,14 +137,14 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onStart() {
         super.onStart();
-        Call<List<Offer>> call = ServerClient.getServerApiService().getSpecials();
-        call.enqueue(new Callback<List<Offer>>() {
+
+        Call<OffersResponse> call = ServerClient.getServerApiService().listOffers(SharedPrefs.getPrefUserId(), SharedPrefs.getPrefSid());
+        call.enqueue(new Callback<OffersResponse>() {
             @Override
-            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
+            public void onResponse(Call<OffersResponse> call, Response<OffersResponse> response) {
                 offers = response.body();
-                Log.d("httpserver", offers.size() + " ");
                 if (offers != null) {
-                    adapter = new OfferListRecyclerAdapter(offers, OfferListActivity.this);
+                    adapter = new OfferListRecyclerAdapter(offers.getItems(), OfferListActivity.this);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(OfferListActivity.this);
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -150,17 +153,16 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
             }
 
             @Override
-            public void onFailure(Call<List<Offer>> call, Throwable t) {
+            public void onFailure(Call<OffersResponse> call, Throwable t) {
                 Log.d("httpserver", "fail");
             }
         });
-
     }
 
     @Override
     public void onClick(int position) {
         Intent intent = new Intent(this, OfferInfoActivity.class);
-        intent.putExtra(EXTRA_OFFER, offers.get(position));
+        intent.putExtra(EXTRA_OFFER, offers.getItems().get(position));
         startActivity(intent);
     }
 
