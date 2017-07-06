@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
     private TextView cashUpdated;
     private TextView bonusWord;
     private TextView bonusCount;
+    private RelativeLayout offersRelative;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +97,24 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, CashListActivity.class));
             }
         });
+        offersRelative = (RelativeLayout) findViewById(R.id.offers_relative);
+        offersRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, OfferListActivity.class));
+            }
+        });
         receiptSum = (TextView) findViewById(R.id.receipt_sum);
         receiptCount = (TextView) findViewById(R.id.receipt_count);
         offerCount = (TextView) findViewById(R.id.main_screen_offers_count);
         firstLaunchLayout = (RelativeLayout) findViewById(R.id.first_enter_relative);
         bonusesLayout = (RelativeLayout) findViewById(R.id.bonuses);
+        bonusesLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CashListActivity.class).putExtra(CashListActivity.EXTRA_BONUSES_OPEN, true));
+            }
+        });
         bonusWord = (TextView) findViewById(R.id.bonus_word);
         bonusCount = (TextView) findViewById(R.id.bonus_count);
 

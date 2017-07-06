@@ -70,8 +70,8 @@ public class OfferInfoActivity extends AppCompatActivity implements NavigationVi
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OfferInfoActivity.this, LoginActivity.class );
-                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                Intent intent = new Intent(OfferInfoActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -82,8 +82,8 @@ public class OfferInfoActivity extends AppCompatActivity implements NavigationVi
     protected void onStart() {
         super.onStart();
         brandDescription.setText(offer.getDescription());
-        brandUrl.setText(offer.getBrand().getImageUrl());
-        offerDescription.setText(offer.getDescription());
+        brandUrl.setText(offer.getBrand().getSiteUrl());
+        offerDescription.setText(offer.getBrand().getDescription());
         priceView.setPrice(offer.getCashBack());
         Picasso.with(BrandcashApp.getAppContext())
                 .load(offer.getBrand().getImageUrl())

@@ -36,11 +36,13 @@ import retrofit2.Response;
  */
 
 public class CashListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    public static final String EXTRA_BONUSES_OPEN = "EXTRA_BONUSES_OPEN";
     private NavigationView navigationView;
     private TabLayout tabs;
     private ViewPager viewPager;
     private CashListAdapter adapter;
     private ProgressBar progressBar;
+    private boolean bonusesOpen = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,11 +69,12 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CashListActivity.this, LoginActivity.class );
-                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                Intent intent = new Intent(CashListActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
+        bonusesOpen = getIntent().getBooleanExtra(EXTRA_BONUSES_OPEN, false);
     }
 
     @Override
@@ -128,6 +131,9 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
                                         tabs.setupWithViewPager(viewPager);
                                         adapter = new CashListAdapter(getSupportFragmentManager(), response.body(), data);
                                         viewPager.setAdapter(adapter);
+                                        if (bonusesOpen) {
+                                            viewPager.setCurrentItem(1);
+                                        }
                                     }
                                 }
 

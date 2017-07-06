@@ -25,14 +25,23 @@
         app:menu="@menu/activity_main_drawer">
 
         <LinearLayout
+            android:id="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:clickable="true"
-            android:orientation="vertical">
+            android:paddingLeft="16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/exit" />
 
             <TextView
-                android:id="@+id/footer"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:fontFamily="sans-serif-condensed"

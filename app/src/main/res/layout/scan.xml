@@ -10,6 +10,12 @@
 
     </com.journeyapps.barcodescanner.BarcodeView>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/scan" />
+
     <LinearLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
@@ -24,6 +30,7 @@
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@color/zxing_transparent"
             android:text="Отменить"
@@ -31,10 +38,10 @@
 
         <View
             android:id="@+id/qr"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/circle_qr"
+            android:background="@drawable/scan_qr"
             android:clickable="true" />
 
         <Button
