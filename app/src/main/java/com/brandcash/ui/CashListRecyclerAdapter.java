@@ -58,7 +58,9 @@ public class CashListRecyclerAdapter extends RecyclerView.Adapter<CashListRecycl
             e.printStackTrace();
         }
         holder.type.setText(item.getOffer().getBrand().getCategory());
-        holder.price.setPrice(Integer.valueOf(item.getSum()));
+        double temp = Double.valueOf(item.getSum());
+        int x = (int) temp;
+        holder.price.setPrice(x);
         holder.name.setText(item.getOffer().getBrand().getName());
         Picasso.with(BrandcashApp.getAppContext())
                 .load(item.getOffer().getBrand().getImageUrl())
