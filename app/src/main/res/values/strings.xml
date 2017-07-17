@@ -6,7 +6,9 @@
     <string name="action_sync">Sync</string>
     <string name="profile">Профиль</string>
     <string name="cash">Счет</string>
+    <string name="card">Мои карты</string>
     <string name="offer">Акции</string>
+    <string name="new_card">Новая карта</string>
     <string name="cards">Мои карты</string>
     <string name="scan_text">Сканировать QR-код на чеке</string>
     <string name="hint_offer_main">Участвуй в акциях, чтобы заработать рубли</string>
@@ -20,6 +22,7 @@
     <string name="receipt">Чек</string>
     <string name="enter">Войти</string>
     <string name="reg">Зарегистрироваться</string>
+    <string name="add_card">Добавить карту</string>
     <string name="reg_label">Регистрация</string>
     <string name="enter_label">Вход</string>
     <string name="next">Далее</string>
