@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.brandcash.util.SharedPrefs;
+
 /**
  * Created by savva.volobuev on 02.07.2017.
  */
@@ -78,6 +80,7 @@ public class EnterActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPrefs.setPrefPhone(phone.getText().toString());
                 startActivity(new Intent(EnterActivity.this, EnterSmsActivity.class).putExtra(EnterSmsActivity.EXTRA_PHONE, phone.getText().toString()));
             }
         });

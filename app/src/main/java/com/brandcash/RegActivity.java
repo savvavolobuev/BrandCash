@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.brandcash.model.User;
 import com.brandcash.model.UserRegestrated;
 import com.brandcash.serverapi.ServerClient;
+import com.brandcash.util.SharedPrefs;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -92,6 +93,7 @@ public class RegActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<UserRegestrated> call, Response<UserRegestrated> response) {
                         if (response.body() != null && response.code() == 200) {
+                            SharedPrefs.setPrefPhone(phone.getText().toString());
                             startActivity(new Intent(RegActivity.this, RegSmsActivity.class).putExtra(RegSmsActivity.EXTRA_PHONE_REG, phone.getText().toString()));
                         }else{
                             Toast.makeText(RegActivity.this, "Ошибка регистрации",Toast.LENGTH_SHORT).show();

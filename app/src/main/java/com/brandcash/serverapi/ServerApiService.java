@@ -2,6 +2,7 @@ package com.brandcash.serverapi;
 
 import com.brandcash.model.AccountData;
 import com.brandcash.model.AccountMain;
+import com.brandcash.model.CardData;
 import com.brandcash.model.CardListResponse;
 import com.brandcash.model.CashListResponseData;
 import com.brandcash.model.Code;
@@ -17,6 +18,7 @@ import com.brandcash.model.UserRegestrated;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -65,4 +67,7 @@ public interface ServerApiService {
 
     @GET("v1/users/{id}/credit_cards")
     Call<CardListResponse> listCards(@Path("id") int userId, @Query("sid") String sid);
+
+    @POST("v1/users/{id}/credit_cards")
+    Call<ResponseBody> addCard(@Path("id") int userId, @Query("sid") String sid, @Body CardData cardData);
 }

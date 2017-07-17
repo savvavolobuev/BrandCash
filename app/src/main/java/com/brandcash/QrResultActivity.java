@@ -74,6 +74,8 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
             }
         });
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ((TextView) headerView.findViewById(R.id.nav_header_phone)).setText(SharedPrefs.getPrefPhone());
         navigationView.setNavigationItemSelectedListener(this);
         qrLine = getIntent().getStringExtra(EXTRA_QR);
 
@@ -109,9 +111,9 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
                 if (response.code() == 200) {
                     responseData = response.body();
                     if (responseData != null) {
-                        if (responseData.isFound() == null) {
+                        if (responseData.getFound() == null) {
 
-                        } else if (responseData.isFound()) {
+                        } else if (responseData.getFound()) {
                             adapter = new ReceiptItemRecyclerAdapter(responseData.getData().getItems());
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(QrResultActivity.this);
                             itemsRecycler.setLayoutManager(mLayoutManager);

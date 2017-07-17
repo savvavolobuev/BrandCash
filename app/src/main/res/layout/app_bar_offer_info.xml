@@ -15,10 +15,10 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            app:navigationIcon="?homeAsUpIndicator"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:navigationIcon="?homeAsUpIndicator"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -32,29 +32,28 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:orientation="horizontal">
 
             <com.brandcash.ui.PriceView
-                android:padding="24dp"
                 android:id="@+id/price"
-                android:textStyle="bold"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.3"
-                android:textSize="18sp"
+                android:gravity="center"
+                android:padding="24dp"
                 android:textColor="@color/colorPrimary"
-                android:gravity="center" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <View
-                android:background="#f0f0f0"
                 android:layout_width="1px"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:background="#f0f0f0" />
 
             <TextView
-                android:padding="24dp"
                 android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -62,6 +61,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
+                android:padding="24dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
 

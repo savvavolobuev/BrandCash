@@ -19,6 +19,10 @@ public class CardData implements Parcelable{
     @SerializedName("number")
     private String number;
 
+
+    public CardData() {
+    }
+
     protected CardData(Parcel in) {
         cardId = in.readInt();
         firstName = in.readString();

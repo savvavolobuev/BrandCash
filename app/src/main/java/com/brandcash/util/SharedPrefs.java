@@ -16,6 +16,7 @@ public class SharedPrefs {
     public static final String PREF_USER_ID = "com.brandcash.preferences.PREF_USER_ID";
     public static final String PREF_EXPIRES = "com.brandcash.preferences.PREF_EXPIRES";
     public static final String PREF_FIRST = "com.brandcash.preferences.PREF_FIRST";
+    public static final String PREF_PHONE = "com.brandcash.preferences.PREF_PHONE";
 
 
 
@@ -33,6 +34,15 @@ public class SharedPrefs {
     public static void setPrefExpires(String exp) {
         SharedPreferences.Editor editor = getPrefGroupGeneric().edit();
         editor.putString(PREF_EXPIRES, exp);
+        editor.apply();
+    }
+
+    public static String getPrefPhone() {
+        return getPrefGroupGeneric().getString(PREF_PHONE, "");
+    }
+    public static void setPrefPhone(String exp) {
+        SharedPreferences.Editor editor = getPrefGroupGeneric().edit();
+        editor.putString(PREF_PHONE, exp);
         editor.apply();
     }
 

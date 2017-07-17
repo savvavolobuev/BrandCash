@@ -26,7 +26,7 @@ public class ReceiptListRecyclerAdapter extends RecyclerView.Adapter<ReceiptList
 
 
     public interface OfferClickListener {
-        void onClick(int position);
+        void onClick(ReceiptResponseData data);
     }
 
     public ReceiptListRecyclerAdapter(List<ReceiptResponseData> offers, OfferClickListener offerClickListener) {
@@ -46,8 +46,14 @@ public class ReceiptListRecyclerAdapter extends RecyclerView.Adapter<ReceiptList
     public void onBindViewHolder(ViewHolder holder, final int position) {
         ReceiptResponseData item = data.get(position);
         holder.receiptNumber.setText("Чек № " + item.getData().getRequestNumber());
-        holder.status.setText(item.isFound() ? "Подтвержден": "В обработке");
+        holder.status.setText(item.getFound() ? "Подтвержден": "В обработке");
         holder.price.setPrice(item.getData().getTotalSum());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                offerClickListener.onClick(data.get(position));
+            }
+        });
     }
 
     @Override

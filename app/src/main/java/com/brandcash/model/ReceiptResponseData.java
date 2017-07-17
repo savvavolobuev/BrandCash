@@ -5,11 +5,13 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by savva.volobuev on 09.06.2017.
  */
 
-public class ReceiptResponseData implements Parcelable {
+public class ReceiptResponseData implements Serializable {
 
     @SerializedName("data")
     private ReceiptData data;
@@ -17,7 +19,6 @@ public class ReceiptResponseData implements Parcelable {
     private Boolean isFound;
     @SerializedName("receipt_id")
     private String receiptId;
-
 
     public ReceiptData getData() {
         return data;
@@ -27,11 +28,11 @@ public class ReceiptResponseData implements Parcelable {
         this.data = data;
     }
 
-    public Boolean isFound() {
+    public Boolean getFound() {
         return isFound;
     }
 
-    public void setFound(boolean found) {
+    public void setFound(Boolean found) {
         isFound = found;
     }
 
@@ -43,33 +44,7 @@ public class ReceiptResponseData implements Parcelable {
         this.receiptId = receiptId;
     }
 
-    protected ReceiptResponseData(Parcel in) {
-        data = in.readParcelable(ReceiptData.class.getClassLoader());
-        isFound = in.readByte() != 0;
-        receiptId = in.readString();
+    public ReceiptResponseData() {
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(data, flags);
-        dest.writeByte((byte) (isFound ? 1 : 0));
-        dest.writeString(receiptId);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<ReceiptResponseData> CREATOR = new Creator<ReceiptResponseData>() {
-        @Override
-        public ReceiptResponseData createFromParcel(Parcel in) {
-            return new ReceiptResponseData(in);
-        }
-
-        @Override
-        public ReceiptResponseData[] newArray(int size) {
-            return new ReceiptResponseData[size];
-        }
-    };
 }

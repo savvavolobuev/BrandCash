@@ -65,6 +65,8 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ((TextView) headerView.findViewById(R.id.nav_header_phone)).setText(SharedPrefs.getPrefPhone());
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(2).setChecked(true);
         setMenuCounter(R.id.nav_offer, 13);

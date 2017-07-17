@@ -5,13 +5,14 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by savva.volobuev on 25.06.2017.
  */
 
-public class ReceiptListResponseData implements Parcelable {
+public class ReceiptListResponseData implements Serializable {
     @SerializedName("items")
     private List<ReceiptResponseData> items;
     @SerializedName("limit")
@@ -23,39 +24,6 @@ public class ReceiptListResponseData implements Parcelable {
     @SerializedName("total_sum")
     private int totalSum;
 
-    protected ReceiptListResponseData(Parcel in) {
-        items = in.createTypedArrayList(ReceiptResponseData.CREATOR);
-        limit = in.readInt();
-        offset = in.readInt();
-        totalCount = in.readInt();
-        totalSum = in.readInt();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(items);
-        dest.writeInt(limit);
-        dest.writeInt(offset);
-        dest.writeInt(totalCount);
-        dest.writeInt(totalSum);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<ReceiptListResponseData> CREATOR = new Creator<ReceiptListResponseData>() {
-        @Override
-        public ReceiptListResponseData createFromParcel(Parcel in) {
-            return new ReceiptListResponseData(in);
-        }
-
-        @Override
-        public ReceiptListResponseData[] newArray(int size) {
-            return new ReceiptListResponseData[size];
-        }
-    };
 
     public List<ReceiptResponseData> getItems() {
         return items;

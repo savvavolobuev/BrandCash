@@ -85,6 +85,12 @@ public class CardListActivity extends AppCompatActivity implements NavigationVie
     @Override
     protected void onStart() {
         super.onStart();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         Call<CardListResponse> call = ServerClient.getServerApiService().listCards(SharedPrefs.getPrefUserId(), SharedPrefs.getPrefSid());
         call.enqueue(new Callback<CardListResponse>() {
             @Override

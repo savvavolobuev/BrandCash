@@ -127,6 +127,17 @@
 
 
         <activity
+            android:name=".ReceiptInfoActivity"
+            android:parentActivityName=".CashListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CashListActivity" />
+        </activity>
+
+
+        <activity
             android:name=".CashListActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"

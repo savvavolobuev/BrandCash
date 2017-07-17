@@ -1,5 +1,6 @@
 package com.brandcash.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,10 @@ import android.widget.TextView;
 
 import com.brandcash.OfferListActivity;
 import com.brandcash.R;
+import com.brandcash.ReceiptInfoActivity;
 import com.brandcash.model.ReceiptData;
 import com.brandcash.model.ReceiptListResponseData;
+import com.brandcash.model.ReceiptResponseData;
 
 import org.w3c.dom.Text;
 
@@ -25,7 +28,7 @@ import java.util.List;
  * Created by savva.volobuev on 25.06.2017.
  */
 
-public class BonusFragment extends Fragment {
+public class BonusFragment extends Fragment implements ReceiptListRecyclerAdapter.OfferClickListener {
     private static final String ARG_BONUS = "ARG_BONUS";
     private TextView totalSum;
     private PriceView receiptSum;
@@ -39,7 +42,7 @@ public class BonusFragment extends Fragment {
     public static BonusFragment newInstance(ReceiptListResponseData bonusData) {
         BonusFragment fragment = new BonusFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ARG_BONUS, bonusData);
+        args.putSerializable(ARG_BONUS, bonusData);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,7 +50,7 @@ public class BonusFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        data = getArguments().getParcelable(ARG_BONUS);
+        data = (ReceiptListResponseData) getArguments().getSerializable(ARG_BONUS);
     }
 
     @Nullable
@@ -71,10 +74,16 @@ public class BonusFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ReceiptListRecyclerAdapter(data.getItems(), null);
+        adapter = new ReceiptListRecyclerAdapter(data.getItems(), this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onClick(ReceiptResponseData data) {
+        startActivity(new Intent(getActivity(), ReceiptInfoActivity.class).putExtra(ReceiptInfoActivity.EXTRA_RECEIPT, data));
     }
 }

@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,8 +76,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ((TextView) headerView.findViewById(R.id.nav_header_phone)).setText(SharedPrefs.getPrefPhone());
         navigationView.setNavigationItemSelectedListener(this);
-
         qrCircle = findViewById(R.id.qr);
         qrCircle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,7 +265,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_offer) {
             startActivity(new Intent(this, OfferListActivity.class));
-        } else if (id==R.id.nav_cards ){
+        } else if (id == R.id.nav_cards) {
             startActivity(new Intent(this, CardListActivity.class));
 
         }

@@ -3,10 +3,12 @@ package com.brandcash.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by savva.volobuev on 09.06.2017.
  */
-public class ReceiptItem implements Parcelable{
+public class ReceiptItem implements Serializable{
 
     private String barcode;
     private int nds18;
@@ -24,32 +26,6 @@ public class ReceiptItem implements Parcelable{
         price = in.readInt();
     }
 
-    public static final Creator<ReceiptItem> CREATOR = new Creator<ReceiptItem>() {
-        @Override
-        public ReceiptItem createFromParcel(Parcel in) {
-            return new ReceiptItem(in);
-        }
-
-        @Override
-        public ReceiptItem[] newArray(int size) {
-            return new ReceiptItem[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(barcode);
-        dest.writeInt(nds18);
-        dest.writeInt(sum);
-        dest.writeString(name);
-        dest.writeInt(quantity);
-        dest.writeInt(price);
-    }
 
     public String getBarcode() {
         return barcode;

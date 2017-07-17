@@ -5,67 +5,52 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by savva.volobuev on 09.06.2017.
  */
-public class ReceiptData implements Parcelable {
+public class ReceiptData implements Serializable {
 
-    private String addressToCheckFiscalSign;
+    @SerializedName("cashTotalSum")
     private int cashTotalSum;
+    @SerializedName("dateTime")
     private String dateTime;
+    @SerializedName("ecashTotalSum")
     private int ecashTotalSum;
+    @SerializedName("fiscalDocumentNumber")
     private int fiscalDocumentNumber;
+    @SerializedName("fiscalDriveNumber")
     private String fiscalDriveNumber;
+    @SerializedName("fiscalSign")
     private long fiscalSign;
+    @SerializedName("items")
     private List<ReceiptItem> items;
+    @SerializedName("kktRegId")
     private String kktRegId;
-    private List<ModifierItem> modifiers;
+    @SerializedName("nds18")
     private int nds;
+    @SerializedName("operationType")
     private int operationType;
+    @SerializedName("operator")
     private String operator;
+    @SerializedName("receiptCode")
     private int receiptCode;
+    @SerializedName("requestNumber")
     private int requestNumber;
-    private String retailPlaceAddress;
+    @SerializedName("shiftNumber")
     private int shiftNumber;
-    private List<StoreNoItems> storenoItems;
+    @SerializedName("taxationType")
     private int taxationType;
+    @SerializedName("totalSum")
     private int totalSum;
+    @SerializedName("user")
     private String user;
+    @SerializedName("userInn")
     private String userInn;
-    private Boolean isFound;
 
-    protected ReceiptData(Parcel in) {
-        addressToCheckFiscalSign = in.readString();
-        cashTotalSum = in.readInt();
-        dateTime = in.readString();
-        ecashTotalSum = in.readInt();
-        fiscalDocumentNumber = in.readInt();
-        fiscalDriveNumber = in.readString();
-        fiscalSign = in.readInt();
-        items = in.createTypedArrayList(ReceiptItem.CREATOR);
-        kktRegId = in.readString();
-        nds = in.readInt();
-        operationType = in.readInt();
-        operator = in.readString();
-        receiptCode = in.readInt();
-        requestNumber = in.readInt();
-        retailPlaceAddress = in.readString();
-        shiftNumber = in.readInt();
-        taxationType = in.readInt();
-        totalSum = in.readInt();
-        user = in.readString();
-        userInn = in.readString();
-    }
-
-
-    public String getAddressToCheckFiscalSign() {
-        return addressToCheckFiscalSign;
-    }
-
-    public void setAddressToCheckFiscalSign(String addressToCheckFiscalSign) {
-        this.addressToCheckFiscalSign = addressToCheckFiscalSign;
+    public ReceiptData() {
     }
 
     public int getCashTotalSum() {
@@ -112,7 +97,7 @@ public class ReceiptData implements Parcelable {
         return fiscalSign;
     }
 
-    public void setFiscalSign(int fiscalSign) {
+    public void setFiscalSign(long fiscalSign) {
         this.fiscalSign = fiscalSign;
     }
 
@@ -130,14 +115,6 @@ public class ReceiptData implements Parcelable {
 
     public void setKktRegId(String kktRegId) {
         this.kktRegId = kktRegId;
-    }
-
-    public List<ModifierItem> getModifiers() {
-        return modifiers;
-    }
-
-    public void setModifiers(List<ModifierItem> modifiers) {
-        this.modifiers = modifiers;
     }
 
     public int getNds() {
@@ -180,28 +157,12 @@ public class ReceiptData implements Parcelable {
         this.requestNumber = requestNumber;
     }
 
-    public String getRetailPlaceAddress() {
-        return retailPlaceAddress;
-    }
-
-    public void setRetailPlaceAddress(String retailPlaceAddress) {
-        this.retailPlaceAddress = retailPlaceAddress;
-    }
-
     public int getShiftNumber() {
         return shiftNumber;
     }
 
     public void setShiftNumber(int shiftNumber) {
         this.shiftNumber = shiftNumber;
-    }
-
-    public List<StoreNoItems> getStorenoItems() {
-        return storenoItems;
-    }
-
-    public void setStorenoItems(List<StoreNoItems> storenoItems) {
-        this.storenoItems = storenoItems;
     }
 
     public int getTaxationType() {
@@ -236,44 +197,4 @@ public class ReceiptData implements Parcelable {
         this.userInn = userInn;
     }
 
-    public static final Creator<ReceiptData> CREATOR = new Creator<ReceiptData>() {
-        @Override
-        public ReceiptData createFromParcel(Parcel in) {
-            return new ReceiptData(in);
-        }
-
-        @Override
-        public ReceiptData[] newArray(int size) {
-            return new ReceiptData[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(addressToCheckFiscalSign);
-        dest.writeInt(cashTotalSum);
-        dest.writeString(dateTime);
-        dest.writeInt(ecashTotalSum);
-        dest.writeInt(fiscalDocumentNumber);
-        dest.writeString(fiscalDriveNumber);
-        dest.writeLong(fiscalSign);
-        dest.writeTypedList(items);
-        dest.writeString(kktRegId);
-        dest.writeInt(nds);
-        dest.writeInt(operationType);
-        dest.writeString(operator);
-        dest.writeInt(receiptCode);
-        dest.writeInt(requestNumber);
-        dest.writeString(retailPlaceAddress);
-        dest.writeInt(shiftNumber);
-        dest.writeInt(taxationType);
-        dest.writeInt(totalSum);
-        dest.writeString(user);
-        dest.writeString(userInn);
-    }
 }
