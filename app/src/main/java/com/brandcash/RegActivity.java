@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.brandcash.model.User;
 import com.brandcash.model.UserRegestrated;
 import com.brandcash.serverapi.ServerClient;
@@ -89,9 +90,12 @@ public class RegActivity extends AppCompatActivity {
                 User user = new User();
                 user.setPhone(phone.getText().toString());
                 Call<UserRegestrated> call = ServerClient.getServerApiService().regUser(user);
+                final MaterialDialog dialog = new MaterialDialog.Builder(RegActivity.this).content("Пожайлуста, подождите").progress(true, 0).build();
+                dialog.show();
                 call.enqueue(new Callback<UserRegestrated>() {
                     @Override
                     public void onResponse(Call<UserRegestrated> call, Response<UserRegestrated> response) {
+                        dialog.dismiss();
                         if (response.body() != null && response.code() == 200) {
                             SharedPrefs.setPrefPhone(phone.getText().toString());
                             startActivity(new Intent(RegActivity.this, RegSmsActivity.class).putExtra(RegSmsActivity.EXTRA_PHONE_REG, phone.getText().toString()));
@@ -102,6 +106,7 @@ public class RegActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<UserRegestrated> call, Throwable t) {
+                        dialog.dismiss();
                         Toast.makeText(RegActivity.this, "Ошибка регистрации",Toast.LENGTH_SHORT).show();
                     }
                 });

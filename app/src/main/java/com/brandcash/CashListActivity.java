@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.brandcash.model.CashListResponseData;
 import com.brandcash.model.ReceiptListResponseData;
 import com.brandcash.serverapi.ServerClient;
@@ -114,10 +115,13 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
 
     private void initCash() {
         Call<CashListResponseData> call = ServerClient.getServerApiService().listCash(SharedPrefs.getPrefUserId(), SharedPrefs.getPrefSid());
+        final MaterialDialog dialog = new MaterialDialog.Builder(CashListActivity.this).content("Пожайлуста, подождите").progress(true, 0).build();
+        dialog.show();
         call.enqueue(new Callback<CashListResponseData>() {
 
             @Override
             public void onResponse(Call<CashListResponseData> call, Response<CashListResponseData> response) {
+                dialog.dismiss();
                 if (response.code() == 200) {
                     final CashListResponseData data = response.body();
                     if (data != null) {
@@ -152,7 +156,7 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
 
             @Override
             public void onFailure(Call<CashListResponseData> call, Throwable t) {
-
+                dialog.dismiss();
             }
         });
     }

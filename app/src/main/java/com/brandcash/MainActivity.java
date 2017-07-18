@@ -140,9 +140,12 @@ public class MainActivity extends AppCompatActivity
 
     private void initSettings() {
         Call<AccountMain> call = ServerClient.getServerApiService().getAccountData(SharedPrefs.getPrefUserId(), SharedPrefs.getPrefSid());
+        final MaterialDialog dialog = new MaterialDialog.Builder(this).content("Пожайлуста, подождите").progress(true, 0).build();
+        dialog.show();
         call.enqueue(new Callback<AccountMain>() {
             @Override
             public void onResponse(Call<AccountMain> call, Response<AccountMain> response) {
+                dialog.dismiss();
                 if (response != null && response.code() == 200) {
                     AccountMain data = response.body();
                     firstLaunchLayout.setVisibility(SharedPrefs.isPrefFirst() ? View.VISIBLE : View.GONE);
@@ -170,6 +173,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<AccountMain> call, Throwable t) {
+                dialog.dismiss();
                 Log.d("httpserver", "fail");
             }
         });

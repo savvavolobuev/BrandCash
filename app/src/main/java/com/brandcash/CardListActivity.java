@@ -17,7 +17,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.brandcash.model.CardData;
 import com.brandcash.model.CardListResponse;
 import com.brandcash.serverapi.ServerClient;
@@ -67,7 +69,9 @@ public class CardListActivity extends AppCompatActivity implements NavigationVie
         recyclerView = (RecyclerView) findViewById(R.id.card_list);
         addCard = (Button) findViewById(R.id.add_card);
 
-
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ((TextView) headerView.findViewById(R.id.nav_header_phone)).setText(SharedPrefs.getPrefPhone());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -92,9 +96,12 @@ public class CardListActivity extends AppCompatActivity implements NavigationVie
     protected void onResume() {
         super.onResume();
         Call<CardListResponse> call = ServerClient.getServerApiService().listCards(SharedPrefs.getPrefUserId(), SharedPrefs.getPrefSid());
+        final MaterialDialog dialog = new MaterialDialog.Builder(CardListActivity.this).content("Пожайлуста, подождите").progress(true, 0).build();
+        dialog.show();
         call.enqueue(new Callback<CardListResponse>() {
             @Override
             public void onResponse(Call<CardListResponse> call, Response<CardListResponse> response) {
+                dialog.dismiss();
                 CardListResponse resp = response.body();
                 if (resp != null && resp.getItems() != null && !resp.getItems().isEmpty()) {
                     items = response.body().getItems();
@@ -110,6 +117,7 @@ public class CardListActivity extends AppCompatActivity implements NavigationVie
 
             @Override
             public void onFailure(Call<CardListResponse> call, Throwable t) {
+                dialog.dismiss();
                 Log.d("httpserver", "fail");
             }
         });

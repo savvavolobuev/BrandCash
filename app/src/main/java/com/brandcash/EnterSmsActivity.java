@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.brandcash.model.Code;
 import com.brandcash.model.PhoneNum;
 import com.brandcash.model.Session;
@@ -93,15 +94,21 @@ public class EnterSmsActivity extends AppCompatActivity {
                 PhoneNum phoneNum = new PhoneNum();
                 phoneNum.setPhone(phone);
                 Call<Code> call = ServerClient.getServerApiService().restorePhoneCode(phoneNum);
+                final MaterialDialog dialog = new MaterialDialog.Builder(EnterSmsActivity.this).content("Пожайлуста, подождите").progress(true, 0).build();
+                dialog.show();
                 call.enqueue(new Callback<Code>() {
                     @Override
                     public void onResponse(Call<Code> call, Response<Code> response) {
+                        dialog.dismiss();
                         if (response.body() != null && response.code() == 200) {
 
                             Call<Session> callSession = ServerClient.getServerApiService().getSession(phone, response.body().getCode());
+                            final MaterialDialog dialog = new MaterialDialog.Builder(EnterSmsActivity.this).content("Пожайлуста, подождите").progress(true, 0).build();
+                            dialog.show();
                             callSession.enqueue(new Callback<Session>() {
                                 @Override
                                 public void onResponse(Call<Session> call, Response<Session> response) {
+                                    dialog.dismiss();
                                     if (response.body() != null && response.code() == 200) {
                                         Session session = response.body();
                                         SharedPrefs.setPrefSid(session.getSid());
@@ -113,6 +120,7 @@ public class EnterSmsActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<Session> call, Throwable t) {
+                                    dialog.dismiss();
                                     Toast.makeText(EnterSmsActivity.this, "Ошибка авторизации",Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -123,6 +131,7 @@ public class EnterSmsActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Code> call, Throwable t) {
+                        dialog.dismiss();
                         Toast.makeText(EnterSmsActivity.this, "Ошибка авторизации",Toast.LENGTH_SHORT).show();
                     }
                 });

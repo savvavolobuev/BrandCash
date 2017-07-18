@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.brandcash.model.Offer;
 import com.brandcash.model.OfferData;
 import com.brandcash.model.OffersResponse;
@@ -150,9 +151,12 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
         super.onStart();
 
         Call<OffersResponse> call = ServerClient.getServerApiService().listOffers(SharedPrefs.getPrefUserId(), SharedPrefs.getPrefSid());
+        final MaterialDialog dialog = new MaterialDialog.Builder(OfferListActivity.this).content("Пожайлуста, подождите").progress(true, 0).build();
+        dialog.show();
         call.enqueue(new Callback<OffersResponse>() {
             @Override
             public void onResponse(Call<OffersResponse> call, Response<OffersResponse> response) {
+                dialog.dismiss();
                 offers = response.body();
                 if (offers != null) {
                     adapter = new OfferListRecyclerAdapter(offers.getItems(), OfferListActivity.this);
@@ -165,6 +169,7 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onFailure(Call<OffersResponse> call, Throwable t) {
+                dialog.dismiss();
                 Log.d("httpserver", "fail");
             }
         });

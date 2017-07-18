@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.brandcash.model.CardData;
 import com.brandcash.serverapi.ServerClient;
 import com.brandcash.util.SharedPrefs;
@@ -170,14 +171,18 @@ public class CreateCardActivity extends AppCompatActivity implements NavigationV
                 card.setFirstName(nameHolder.getText().toString());
                 card.setLastName(nameHolder.getText().toString());
                 Call<ResponseBody> call = ServerClient.getServerApiService().addCard(SharedPrefs.getPrefUserId(), SharedPrefs.getPrefSid(), card);
+                final MaterialDialog dialog = new MaterialDialog.Builder(CreateCardActivity.this).content("Пожайлуста, подождите").progress(true, 0).title("Пожайлуста, подождите").build();
+                dialog.show();
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        dialog.dismiss();
                         onBackPressed();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        dialog.dismiss();
                         Log.d("httpserver", "fail");
                     }
                 });

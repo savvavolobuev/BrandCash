@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.brandcash.BrandcashApp;
 import com.brandcash.CardListActivity;
 import com.brandcash.R;
 import com.brandcash.model.CardData;
+import com.brandcash.model.CardType;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class CardListRecyclerAdapter extends RecyclerView.Adapter<CardListRecycl
     public void onBindViewHolder(ViewHolder holder, int position) {
         CardData item = items.get(position);
         holder.cardNumber.setText(item.getNumber());
+        holder.image.setImageResource(CardType.detect(item.getNumber()) == CardType.MASTERCARD ? R.drawable.mastercard : R.drawable.visa);
     }
 
     @Override
