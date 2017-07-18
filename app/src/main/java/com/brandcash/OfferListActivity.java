@@ -7,6 +7,7 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -136,8 +137,14 @@ public class OfferListActivity extends AppCompatActivity implements NavigationVi
 
         if (id == R.id.nav_profile) {
         } else if (id == R.id.nav_cash) {
-
+            startActivity(new Intent(this, CashListActivity.class));
+            finish();
         } else if (id == R.id.nav_offer) {
+           // startActivity(new Intent(this, OfferListActivity.class));
+           // finish();
+        } else if (id == R.id.nav_cards) {
+            startActivity(new Intent(this, CardListActivity.class));
+            finish();
 
         }
 

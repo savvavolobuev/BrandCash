@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -65,6 +66,7 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         ((TextView) headerView.findViewById(R.id.nav_header_phone)).setText(SharedPrefs.getPrefPhone());
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(1).setChecked(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabs = (TabLayout) findViewById(R.id.tabs);
@@ -87,9 +89,14 @@ public class CashListActivity extends AppCompatActivity implements NavigationVie
 
         if (id == R.id.nav_profile) {
         } else if (id == R.id.nav_cash) {
-
+           // startActivity(new Intent(this, CashListActivity.class));
+          //  finish();
         } else if (id == R.id.nav_offer) {
-
+            startActivity(new Intent(this, OfferListActivity.class));
+            finish();
+        } else if (id == R.id.nav_cards) {
+            startActivity(new Intent(this, CardListActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

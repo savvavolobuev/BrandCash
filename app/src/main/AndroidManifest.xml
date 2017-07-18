@@ -97,43 +97,43 @@
 
         <activity
             android:name=".CreateCardActivity"
-            android:parentActivityName=".CardListActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CardListActivity" />
+                android:value=".MainActivity" />
         </activity>
 
         <activity
             android:name=".OfferInfoActivity"
-            android:parentActivityName=".OfferListActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OfferListActivity" />
+                android:value=".MainActivity" />
         </activity>
 
         <activity
             android:name=".QrResultActivity"
-            android:parentActivityName=".CaptureQrActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CaptureQrActivity" />
+                android:value=".MainActivity" />
         </activity>
 
 
         <activity
             android:name=".ReceiptInfoActivity"
-            android:parentActivityName=".CashListActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CashListActivity" />
+                android:value=".MainActivity" />
         </activity>
 
 

@@ -51,13 +51,15 @@ public class CreateCardActivity extends AppCompatActivity implements NavigationV
 
         if (id == R.id.nav_profile) {
         } else if (id == R.id.nav_cash) {
-
-        } else if (id == R.id.nav_offer) {
-            TaskStackBuilder.create(this)
-                    .addParentStack(MainActivity.class)
-                    .addNextIntent(new Intent(this, CreateCardActivity.class))
-                    .startActivities();
+            startActivity(new Intent(this, CashListActivity.class));
             finish();
+        } else if (id == R.id.nav_offer) {
+            startActivity(new Intent(this, OfferListActivity.class));
+            finish();
+        } else if (id == R.id.nav_cards) {
+            startActivity(new Intent(this, CardListActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -89,6 +91,7 @@ public class CreateCardActivity extends AppCompatActivity implements NavigationV
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         ((TextView) headerView.findViewById(R.id.nav_header_phone)).setText(SharedPrefs.getPrefPhone());
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(3).setChecked(true);
 
 
         scan = (LinearLayout) findViewById(R.id.scan);

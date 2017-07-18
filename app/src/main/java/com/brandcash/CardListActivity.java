@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -49,8 +50,14 @@ public class CardListActivity extends AppCompatActivity implements NavigationVie
 
         if (id == R.id.nav_profile) {
         } else if (id == R.id.nav_cash) {
-
+            startActivity(new Intent(this, CashListActivity.class));
+            finish();
         } else if (id == R.id.nav_offer) {
+            startActivity(new Intent(this, OfferListActivity.class));
+            finish();
+        } else if (id == R.id.nav_cards) {
+            //startActivity(new Intent(this, CardListActivity.class));
+            //finish();
 
         }
 
@@ -72,6 +79,8 @@ public class CardListActivity extends AppCompatActivity implements NavigationVie
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         ((TextView) headerView.findViewById(R.id.nav_header_phone)).setText(SharedPrefs.getPrefPhone());
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(3).setChecked(true);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

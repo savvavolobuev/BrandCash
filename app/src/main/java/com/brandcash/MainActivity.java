@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
         } else if (id == R.id.nav_cash) {
-
+            startActivity(new Intent(this, CashListActivity.class));
         } else if (id == R.id.nav_offer) {
             startActivity(new Intent(this, OfferListActivity.class));
         } else if (id == R.id.nav_cards) {
