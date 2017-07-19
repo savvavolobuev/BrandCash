@@ -41,6 +41,10 @@ public interface ServerApiService {
     @POST("v1/sessions")
     Call<Session> getSession(@Query("phone") String phone, @Query("code") String code);
 
+
+    @GET("v1/sessions/{sid}")
+    Call<Session> checkSession(@Path("sid") String sid);
+
     @GET("v1/users/{id}/accounts")
     Call<AccountMain> getAccountData(@Path("id") int userId, @Query("sid") String sid);
 
