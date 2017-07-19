@@ -47,83 +47,115 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-
-            <TextView
+            <LinearLayout
+                android:id="@+id/content_less"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center_horizontal"
-                android:maxLines="1"
-                android:text="*************************************************************"
-                android:textColor="#3c4f5e"
-                android:textSize="12sp" />
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            <TextView
-                android:id="@+id/user"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Чек в обработке"
+                    android:textColor="#3c4f5e" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="Данные будут доступны в течении 24 часов"
+                    android:textColor="#3c4f5e" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/content_full"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center_horizontal"
-                android:maxLines="1"
-                android:textColor="#3c4f5e"
-                android:textSize="18sp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/inn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center_horizontal"
-                android:maxLines="1"
-                android:textColor="#989dab"
-                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:text="*************************************************************"
+                    android:textColor="#3c4f5e"
+                    android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/itemNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center_horizontal"
-                android:maxLines="1"
-                android:textColor="#989dab"
-                android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:textColor="#3c4f5e"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/shiftNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center_horizontal"
-                android:maxLines="1"
-                android:textColor="#989dab"
-                android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/inn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:textColor="#989dab"
+                    android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/operator"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center_horizontal"
-                android:maxLines="1"
-                android:textColor="#989dab"
-                android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/itemNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:textColor="#989dab"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/shiftNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:textColor="#989dab"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/operator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:textColor="#989dab"
+                    android:textSize="12sp" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center_horizontal"
-                android:maxLines="1"
-                android:text="*************************************************************"
-                android:textColor="#3c4f5e"
-                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:text="*************************************************************"
+                    android:textColor="#3c4f5e"
+                    android:textSize="12sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="18dp"
-                android:background="#afbac4" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="18dp"
+                    android:background="#afbac4" />
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/itemsRecycler"

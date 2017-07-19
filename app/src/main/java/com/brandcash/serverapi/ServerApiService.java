@@ -51,7 +51,7 @@ public interface ServerApiService {
     @GET("v1/settings")
     Call<AccountData> getSettings();
 
-    @GET("v1/receipts/add")
+    @POST("v1/receipts/add")
     Call<ReceiptResponseData> add(@Query("n") String n, @Query("t") String t,
                                   @Query("s") String s, @Query("fn") String fn,
                                   @Query("i") String i, @Query("fp") String fp, @Query("sid") String sid);

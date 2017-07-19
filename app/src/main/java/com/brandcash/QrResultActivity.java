@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.brandcash.model.Document;
@@ -56,6 +57,8 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
     private RecyclerView itemsRecycler;
     private ReceiptItemRecyclerAdapter adapter;
     private ReceiptResponseData responseData;
+    private LinearLayout contentFull;
+    private LinearLayout contentLess;
 
 
     @Override
@@ -77,7 +80,7 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         ((TextView) headerView.findViewById(R.id.nav_header_phone)).setText(SharedPrefs.getPrefPhone());
         navigationView.setNavigationItemSelectedListener(this);
-        qrLine = getIntent().getStringExtra(EXTRA_QR);
+        responseData = (ReceiptResponseData) getIntent().getSerializableExtra(EXTRA_QR);
 
         name = (TextView) findViewById(R.id.user);
         inn = (TextView) findViewById(R.id.inn);
@@ -92,112 +95,49 @@ public class QrResultActivity extends AppCompatActivity implements NavigationVie
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QrResultActivity.this, LoginActivity.class );
-                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                Intent intent = new Intent(QrResultActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
+        contentFull = (LinearLayout) findViewById(R.id.content_full);
+        contentLess = (LinearLayout) findViewById(R.id.content_less);
+
+        if (responseData.getFound() == null) {
+            contentFull.setVisibility(View.GONE);
+            itemsRecycler.setVisibility(View.GONE);
+            contentLess.setVisibility(View.VISIBLE);
+        } else if (responseData.getFound()) {
+            itemsRecycler.setVisibility(View.VISIBLE);
+            contentFull.setVisibility(View.VISIBLE);
+            contentLess.setVisibility(View.GONE);
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        QrLine qrCode = createQrLine();
-
-        Call<ReceiptResponseData> call = ServerClient.getServerApiService().add(qrCode.getN(), qrCode.getT(), qrCode.getS(), qrCode.getFn(), qrCode.getI(), qrCode.getFp(), SharedPrefs.getPrefSid());
-        call.enqueue(new Callback<ReceiptResponseData>() {
-            @Override
-            public void onResponse(Call<ReceiptResponseData> call, Response<ReceiptResponseData> response) {
-                if (response.code() == 200) {
-                    responseData = response.body();
-                    if (responseData != null) {
-                        if (responseData.getFound() == null) {
-
-                        } else if (responseData.getFound()) {
-                            adapter = new ReceiptItemRecyclerAdapter(responseData.getData().getItems());
-                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(QrResultActivity.this);
-                            itemsRecycler.setLayoutManager(mLayoutManager);
-                            itemsRecycler.setItemAnimator(new DefaultItemAnimator());
-                            itemsRecycler.setAdapter(adapter);
-                            name.setText(responseData.getData().getUser());
-                            inn.setText(responseData.getData().getUserInn());
-                            //number.setText("Чек № " + document.getReceiptData().getNds18());
-                            shift.setText("Смена № " + responseData.getData().getShiftNumber());
-                            operator.setText("Кассир " + responseData.getData().getOperator());
-                            sum.setPrice(responseData.getData().getTotalSum());
-                            cashback.setPrice(responseData.getData().getCashTotalSum());
-                            bonuses.setText(responseData.getData().getEcashTotalSum() + " ");
-                        } else {
-
-                        }
-                    }
-                } else if (response.code() == 403) {
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ReceiptResponseData> call, Throwable t) {
-                int i = 1;
-                i++;
-            }
-        });
-    }
-
-    private QrLine createQrLine() {
-        QrLine result = new QrLine();
-        try {
-            Map<String, List<String>> params = new HashMap<String, List<String>>();
-            String[] urlParts = qrLine.split("\\?");
-            if (urlParts.length > 1) {
-                String query = urlParts[1];
-                for (String param : query.split("&")) {
-                    String[] pair = param.split("=");
-                    String key = URLDecoder.decode(pair[0], "UTF-8");
-                    String value = "";
-                    if (pair.length > 1) {
-                        value = URLDecoder.decode(pair[1], "UTF-8");
-                    }
-
-                    List<String> values = params.get(key);
-                    if (values == null) {
-                        values = new ArrayList<String>();
-                        params.put(key, values);
-                    }
-                    values.add(value);
-                }
-            } else {
-                String query = urlParts[0];
-                for (String param : query.split("&")) {
-                    String[] pair = param.split("=");
-                    String key = URLDecoder.decode(pair[0], "UTF-8");
-                    String value = "";
-                    if (pair.length > 1) {
-                        value = URLDecoder.decode(pair[1], "UTF-8");
-                    }
-
-                    List<String> values = params.get(key);
-                    if (values == null) {
-                        values = new ArrayList<String>();
-                        params.put(key, values);
-                    }
-                    values.add(value);
-                }
-            }
-            result.setN(params.get("n") == null || params.get("n").isEmpty() ? "" : params.get("n").get(0));
-            result.setFn(params.get("fn") == null || params.get("fn").isEmpty() ? "" : params.get("fn").get(0));
-            result.setS(params.get("s") == null || params.get("s").isEmpty() ? "" : params.get("s").get(0));
-            result.setT(params.get("t") == null || params.get("t").isEmpty() ? "" : params.get("t").get(0));
-            result.setFp(params.get("fp") == null || params.get("fp").isEmpty() ? "" : params.get("fp").get(0));
-            result.setI(params.get("i") == null || params.get("i").isEmpty() ? "" : params.get("i").get(0));
-        } catch (UnsupportedEncodingException ex) {
-            throw new AssertionError(ex);
+        if (responseData.getFound() == null) {
+            sum.setPrice(responseData.getData().getTotalSum());
+            cashback.setPrice(responseData.getData().getCashTotalSum());
+            bonuses.setText(responseData.getData().getEcashTotalSum() + " ");
+        } else if (responseData.getFound()) {
+            adapter = new ReceiptItemRecyclerAdapter(responseData.getData().getItems());
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(QrResultActivity.this);
+            itemsRecycler.setLayoutManager(mLayoutManager);
+            itemsRecycler.setItemAnimator(new DefaultItemAnimator());
+            itemsRecycler.setAdapter(adapter);
+            name.setText(responseData.getData().getUser());
+            inn.setText(responseData.getData().getUserInn());
+            //number.setText("Чек № " + document.getReceiptData().getNds18());
+            shift.setText("Смена № " + responseData.getData().getShiftNumber());
+            operator.setText("Кассир " + responseData.getData().getOperator());
+            sum.setPrice(responseData.getData().getTotalSum());
+            cashback.setPrice(responseData.getData().getCashTotalSum());
+            bonuses.setText(responseData.getData().getEcashTotalSum() + " ");
         }
-
-
-        return result;
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
